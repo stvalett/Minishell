@@ -1,25 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/02/22 11:24:31 by stvalett          #+#    #+#             */
+/*   Updated: 2017/02/22 11:44:50 by stvalett         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 static int	ft_get_prompt(char **env)
 {
-  int	ret;
-  char	*line;
+	pid_t 	pid;
+	char	*line;
 
-  ret = 0;
-  ft_putstr("Minishell $> ");
-  get_next_line(0, &line);
-  ret = ft_cmd_exec(line, env);
-  free(line);
-  return (ret);
+	ft_putstr("Minishell $> ");
+	get_next_line(0, &line);
+	pid = ft_cmd_exec(line, env);
+	free(line);
+	waitpid(pid, NULL, 0);
+	return (pid);
 }
 
 int	main(int ac, char **av, char **env)
 {
-  int	ret;
+	int	ret;
 
-  ret = 0;
-  if (ac > 0 && av != NULL)
-    while ((ret = ft_get_prompt(env)) > 0)
-      ;
-  return (0);
+	ret = 0;
+	if (ac > 0 && av != NULL)
+		while ((ret = ft_get_prompt(env)) > 0)
+			;
+	return (0);
 }
