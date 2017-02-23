@@ -6,11 +6,21 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:24 by stvalett          #+#    #+#             */
-/*   Updated: 2017/02/22 11:24:27 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/02/23 10:31:31 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	ft_count_env(char **env)
+{
+	int i;
+
+	i = 0;
+	while (env[i])
+		i++;
+	return (i);
+}
 
 int	ft_free(char **str, int flag)
 {
