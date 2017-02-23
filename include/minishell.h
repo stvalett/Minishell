@@ -28,8 +28,12 @@
 #include <fcntl.h>
 
 int	ft_cmd_exec(char *line, char **env);
+int	ft_cmd_cd(char **av, char **env);
+int	ft_cmd_setenv(char **av, char **env);
 int	ft_get_env(char *line, char **env);
+char	**ft_setenv(const char *line, const char *value, char **env);
 char	**ft_get_av(char *line, char **env);
+char	*ft_get_home(char *av, char **env);
 int	ft_free(char **str, int flag);
 int	ft_cmd_env(char **av, char **env);
 #endif
