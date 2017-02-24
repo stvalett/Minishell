@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:08 by stvalett          #+#    #+#             */
-/*   Updated: 2017/02/23 16:40:15 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/02/24 17:25:23 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_unsetenv_bis(char *str)
 	return (tmp);
 }
 
-char	**ft_unsetenv(const char *line, const char *value, char ***env)
+/*char	**ft_unsetenv(const char *line, const char *value, char ***env)
 {
 	char	*path;
 	char	**tmp;
@@ -64,30 +64,26 @@ char	**ft_unsetenv(const char *line, const char *value, char ***env)
 	*env = tmp;
 	ft_free(tmp, 0);
 	return (*env);
-}
+}*/
 
-char	**ft_setenv(const char *line, const char *value, char **env)
+char	**ft_setenv(const char *line, const char *value, char **env_bis)
 {
   char	*path;
   int	len;
   int	i;
-  int	count;
 
   len = (ft_strlen(line) + 1) + (ft_strlen(value) + 1);
-  if ((path = (char *)malloc(sizeof(*path) * len)) == NULL)
+  if ((path = (char *)malloc(sizeof(char) * len)) == NULL)
     return (NULL);
   ft_strcpy(path, line);
   ft_strcat(path, "=");
   ft_strcat(path, value);
-  i = ft_get_env(path, env);
+  i = ft_get_env(path, env_bis);
   if (i >= 0)
-    env[i] = path;
+    env_bis[i] = path;
   else
-  {
-	  count = ft_count_env(env);
-	  env[count - 1] = path;
-  }
-  return (env);
+	  return (ft_add_env(line, value, env_bis));
+  return (env_bis);
 }
 
 int	ft_get_env(char *line, char **env)
@@ -98,25 +94,17 @@ int	ft_get_env(char *line, char **env)
   if ((path = (char *)malloc(sizeof(*path) * ft_strlen(line) + 1)) == NULL)
     return (-1);
   //ft_strcat(path, "=");
-  i = 0;
-  while (line[i])
-  {
-	  if (line[i] == '=')
-		  ;
-	  else
+  i = -1;
+  while (line[++i])
+	  if (line[i] != '=')
 		  path[i] = line[i];
-	  i++;
-  }
-  i = 0;
-  while (env[i])
-  {
+  i = -1;
+  while (env[++i])
     if ((ft_strnstr(env[i], path, ft_strlen(path))) != 0)
     {
       free(path);
       return (i);
-    }
-    i++;
-  }
+  	}
   free(path);
   return (-1);
 }

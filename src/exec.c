@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:23:45 by stvalett          #+#    #+#             */
-/*   Updated: 2017/02/23 14:14:58 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/02/24 17:07:44 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,21 @@ static int	ft_cmd_basic(char **av, char **env)
 	if ((ft_strcmp(av[0], "exit")) == 0)
 		return (1);
 	// return (ft_cmd_exit());
-	else if ((ft_strcmp(av[0], "cd")) == 0)
-		return (ft_cmd_cd(av, env));
-	else if ((ft_strcmp(av[0], "echo")) == 0)
-		return (1);
+//	else if ((ft_strcmp(av[0], "cd")) == 0)
+//		return (ft_cmd_cd(av, env));
+//	else if ((ft_strcmp(av[0], "echo")) == 0)
+//		return (1);
 	// return (ft_cmd_echo());
 	else if (ft_strcmp(av[0], "env") == 0 || ft_strcmp(av[0], "ENV") == 0)
 		return (ft_cmd_env(av, env));
 	else if ((ft_strcmp(av[0], "setenv")) == 0)
 		return (ft_cmd_setenv(av, env));
-	else if ((ft_strcmp(av[0], "unsetenv")) == 0)
-		return (ft_cmd_unsetenv(av, env));
+//	else if ((ft_strcmp(av[0], "unsetenv")) == 0)
+//		return (ft_cmd_unsetenv(av, env));
 	return (0);
 }
 
-static char	*ft_get_path_try(char *av, char *dir)
+/*static char	*ft_get_path_try(char *av, char *dir)
 {
 	char	*path;
 	int	len_max;
@@ -95,34 +95,34 @@ static int	ft_cmd_exec_child(char **av, char **env)
 		return (0);
 	}
 	return (1);
-}
+}*/
 
-int	ft_cmd_exec(char *line, char **env)
+int	ft_cmd_exec(char *line, char **env_bis)
 {
 	char	**av;
-	pid_t	pid;
+	//pid_t	pid;
 
-	if ((av = ft_get_av(line, env)) != NULL)
+	if ((av = ft_get_av(line, env_bis)) != NULL)
 	{
-		if ((ft_cmd_basic(av, env)) == 0)
+		if ((ft_cmd_basic(av, env_bis)) == 0)
 		{
-			pid = fork();
+		/*	pid = fork();
 			if (pid > 0)
 				waitpid(pid, NULL, 0);
 			if (pid == 0)
 			{
-				if ((ft_cmd_exec_child(av, env)) == 0)
+				if ((ft_cmd_exec_child(av, *env_bis)) == 0)
 				{
 					ft_free(av, 0);
-					exit(0);
+					exit(1);
 				}
-				exit(1);
+				exit(0);
 			}
 			else
 			{
 				ft_free(av, 0);
 				return (pid);
-			}
+			}*/
 		}
 	}
 	return (1);
