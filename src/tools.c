@@ -12,6 +12,23 @@
 
 #include "../include/minishell.h"
 
+void ft_print_env(char **env_bis)
+{
+  int i;
+
+  if (env_bis == NULL)
+  {
+    ft_putstr("ENV is null and cannot be printed\n");
+    return ;
+  }
+  i = 0;
+  while (env_bis[i])
+  {
+    ft_putendl(env_bis[i]);
+    i++;
+  }
+}
+
 int	ft_count_env(char **env)
 {
 	int i;

@@ -28,26 +28,28 @@ static void	ft_get_replace(char **av, char **env)
     ft_strcpy(str, env[i] + len);
     free(*av);
     *av = str;
+    free(str);
   }
 }
 
-char	**ft_get_av(char *line, char **env)
+char	**ft_get_av(char *line, char **env_bis)
 {
   char	**av;
   int	i;
 
   av = ft_strsplit(line, ' ');
   if (av == NULL)
+  {
     ft_putendl_fd("av == NULL", 2);
+    ft_free(av, 0);
+    return (NULL);
+  }
   else
   {
-    i = 0;
-    while (av[i])
-    {
-      if (av[i][0] == '$')
-	ft_get_replace(&av[i], env);
-      i++;
-    }
+    i = -1;
+    while (av[++i])
+      if (av[i][0] == '~' && ft_strlen(av[i]) > 0)
+	ft_get_replace(&av[i], env_bis);
   }
   return (av);
 }

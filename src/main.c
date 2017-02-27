@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-static int	ft_get_prompt(char **env_bis)
+static int	ft_get_prompt(char ***env_bis)
 {
 //  pid_t 	pid;
   int	ret;
@@ -34,7 +34,7 @@ int	main(int ac, char **av, char **env)
   ret = 0;
   env_bis = ft_cpy_env(env, 0, NULL);
   if (ac > 0 && av != NULL)
-    while ((ret = ft_get_prompt(env_bis)) > 0)
+    while ((ret = ft_get_prompt(&env_bis)) > 0)
 		;
   return (0);
 }
