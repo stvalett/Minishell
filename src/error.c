@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:59:27 by stvalett          #+#    #+#             */
-/*   Updated: 2017/02/28 13:27:07 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/02/28 18:43:06 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_error_dollar(char **av, char **env_bis)
 	i = 0;
 	index = 0;
 	while (av[++i])
-		if ((ft_strchr(av[i], '$')) != NULL && ft_no_digit(av[i]) == 0)
+		if ((ft_strchr(av[i], '$')) != NULL && ft_no_digit(av[i]) == 0 && ft_strlen(av[i]) > 1)
 		{
 			tmp = ft_error_dollar_bis(av[i], env_bis, &index);
 			if (index < 0)

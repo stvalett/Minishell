@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:46 by stvalett          #+#    #+#             */
-/*   Updated: 2017/02/28 13:33:31 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/02/28 17:01:20 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int		ft_get_env(char *line, char **env_bis);
 int		ft_free(char **str, int flag);
 int		ft_count_env(char **env);
 int		ft_no_digit(char *av);
+int		ft_print_one_dollar(char *av);
 char	*ft_no_metachr(char *str);
 char	*ft_strcpy_cara(char *av);
 char	**ft_cpy_env(char **env, int len, char *path);

@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/24 10:38:53 by stvalett          #+#    #+#             */
-/*   Updated: 2017/02/28 14:03:30 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/02/28 17:15:43 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ void	ft_env_without(char **av, char **env_bis, int *flag)
 	index = 0;
 	while (av[++i])
 	{
+		if (ft_print_one_dollar(av[i]) == 1)
+		{
+			ft_putstr(av[i]);
+			ft_putchar(' ');
+		}
 		if ((ft_strchr(av[i], '$')) == NULL)
 		{
 			ft_putstr(av[i]);
@@ -55,15 +60,16 @@ void	ft_env_without(char **av, char **env_bis, int *flag)
 		{
 			tmp2 = ft_strcpy_cara(av[i]);
 			index = ft_get_env(tmp2, env_bis);
+			free(tmp2);
 		}
 		if (*flag == 0 && index >= 0)
 		{
 			tmp = ft_env_without_bis(env_bis, index);
 			ft_putstr(tmp);
 			ft_putchar(' ');
+			free(tmp);
 		}
 	}
-	free(tmp);
 }
 
 char	*ft_strcpy_cara(char *av)

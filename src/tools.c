@@ -6,11 +6,24 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/24 10:34:04 by stvalett          #+#    #+#             */
-/*   Updated: 2017/02/28 13:24:01 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/02/28 17:01:10 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	ft_print_one_dollar(char *av)
+{
+	int i;
+
+	i = 0;
+	if (ft_strlen(av) == 1)
+	{
+		if (av[i] == '$')
+			return (1);
+	}
+	return (0);
+}
 
 int	ft_no_digit(char *av)
 {
