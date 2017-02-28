@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:23:45 by stvalett          #+#    #+#             */
-/*   Updated: 2017/02/27 18:35:24 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/02/28 19:00:53 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int	ft_cmd_exec(char *line, char ***env_bis)
 
 	if ((av = ft_get_av(line, *env_bis)) != NULL)
 	{
+		ft_putendl("HELLO");
 		if ((ft_cmd_basic(av, env_bis)) == 0)
 		{
 			pid = fork();
