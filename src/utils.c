@@ -6,13 +6,89 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/24 10:38:53 by stvalett          #+#    #+#             */
-/*   Updated: 2017/02/27 17:48:00 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/02/28 11:16:34 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/*char	*ft_str_without_cara(char *tmp)*/
+static char	*ft_env_without_bis(char **env_bis, int index)
+{
+	char	*tmp;
+	int		i;
+	int		k;
+	int		j;
+
+	if ((tmp = (char*)malloc(sizeof(char) * ft_strlen(env_bis[index]) + 1)) == NULL)
+		return (NULL);
+	i = -1;
+	while (env_bis[++i])
+	{
+		if (i == index)
+		{
+			j = 0;
+			k = 0;
+			while (env_bis[i][j] != '=')
+				j++;
+			j++;
+			while (env_bis[i][j])
+			{
+				tmp[k] = env_bis[i][j];
+				j++;
+				k++;
+			}
+			tmp[k] = '\0';
+		}
+	}
+	return (tmp);
+}
+
+void	ft_env_without(char **av, char **env_bis, int *flag, int index)
+{
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	while (av[++i])
+	{
+		if ((ft_strchr(av[i], '$')) == NULL)
+		{
+			ft_putstr(av[i]);
+			ft_putchar(' ');
+		}
+		if (*flag == 1)
+		{
+			tmp = ft_env_without_bis(env_bis, index);
+			ft_putstr(tmp);
+			ft_putchar(' ');
+			*flag = 0;
+		}
+	}
+	free(tmp);
+}
+
+char	*ft_strcpy_cara(char *av)
+{
+	int 	i;
+	int		j;
+	char	*tmp;
+
+	if ((tmp = (char *)malloc(sizeof(char) * ft_strlen(av) + 1)) == NULL)
+		return (NULL);
+	i = -1;
+	j = 0;
+	while (av[++i])
+	{
+		if (av[i] != '$')
+		{
+			tmp[j] = av[i];
+			j++;
+		}
+	}
+	tmp[j] = '\0';
+	return (tmp);
+}
+
 char	**ft_cpy_env(char **env, int len, char *path)
 {
 	char		**tmp;

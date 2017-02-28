@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:44:50 by stvalett          #+#    #+#             */
-/*   Updated: 2017/02/27 18:21:09 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/02/28 11:16:26 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,67 +14,29 @@
 
 void	ft_print_dollar_bis(char **av, char **env_bis)
 {
-	char	*tmp;
-	int		flag;
-	int		i;
-	int		k;
-	int		j;
-	int		save;
+	char			*tmp;
+	int				flag;
+	int				index;
+	int				i;
 
 	i = 0;
 	flag = 0;
+	index = 0;
 	while (av[++i])
 	{
-		if ((tmp = (char *)malloc(sizeof(char) * (ft_strlen(av[i]) + 1))) == NULL)
-			exit(1);
-		k = -1;
-		j = 0;
-		while (av[i][++k])
+		tmp = ft_strcpy_cara(av[i]);
+		if ((index = ft_get_env(tmp, env_bis)) >= 0)
 		{
-			if(av[i][k] != '$')
-			{
-				tmp[j] = av[i][k];
-				j++;
-			}
-			if (av[i][k] == ' ')
-				break;
+			flag = 1;
+			break;
 		}
-		tmp[j] = '\0';
-		j = -1;
-		save = 0;
-		while (env_bis[++j])
-			if ((ft_strncmp(tmp, env_bis[j], ft_strlen(tmp))) == 0)
-			{
-				flag = 1;
-				//ft_putendl(env_bis[j]);
-				free(tmp);
-				//return ;
-				save = j;
-				break;
-			}
 	}
 	if (flag == 0)
-	{
-		ft_error(tmp);
-		free(tmp);
-	}
+		ft_error(av);
 	else
-	{
-		i = 0;
-		while (av[++i])
-			if ((ft_strchr(av[i], '$')) == NULL)
-			{
-				ft_putstr(av[i]);
-				ft_putchar(' ');
-				if (flag == 1)
-				{
-					ft_putstr(env_bis[save]);
-					ft_putchar(' ');
-					flag = 0;
-				}
-			}
-	}
+		ft_env_without(av, env_bis, &flag, index);
 	ft_putchar('\n');
+	free(tmp);
 }
 
 void	ft_print_dollar(char **av, char **env_bis)
