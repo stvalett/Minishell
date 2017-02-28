@@ -6,11 +6,37 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:08 by stvalett          #+#    #+#             */
-/*   Updated: 2017/02/28 10:24:47 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/02/28 13:41:15 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+static char *ft_get_env_bis(char *av)
+{
+	char	*tmp;
+	int		i;
+	int		j;
+
+	if ((tmp = (char *)malloc(sizeof(char) * ft_strlen(av) + 1)) == NULL)
+		return (NULL);
+	i = 0;
+	if (av[i] == '=')
+	{
+		while (av[i] == '=')
+			i++;
+		i++;
+	}
+	j = 0;
+	while (av[i] != '=')
+	{
+		tmp[j] = av[i];
+		j++;
+		i++;
+	}
+	tmp[j] = '\0';
+	return (tmp);
+}
 
 char	*ft_unsetenv_bis(char *str)
 {
@@ -87,10 +113,11 @@ char	**ft_setenv(const char *line, const char *value, char **env_bis)
 	return (env_bis);
 }
 
-int	ft_get_env(char *line, char **env)
+int	ft_get_env(char *line, char **env_bis)
 {
 	int 	i;
 	char	*path;
+	char	*tmp;
 
 	if ((path = (char *)malloc(sizeof(*path) * ft_strlen(line) + 1)) == NULL)
 		return (-1);
@@ -100,12 +127,17 @@ int	ft_get_env(char *line, char **env)
 		if (line[i] != '=')
 			path[i] = line[i];
 	i = -1;
-	while (env[++i])
-		if ((ft_strncmp(env[i], path, ft_strlen(path))) == 0)
+	while (env_bis[++i])
+	{
+		tmp = ft_get_env_bis(env_bis[i]);
+		if ((ft_strcmp(tmp, path)) == 0)
 		{
 			free(path);
+			free(tmp);
 			return (i);
 		}
+	}
+	free(tmp);
 	free(path);
 	return (-1);
 }

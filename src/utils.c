@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/24 10:38:53 by stvalett          #+#    #+#             */
-/*   Updated: 2017/02/28 11:16:34 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/02/28 14:03:30 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,39 +16,34 @@ static char	*ft_env_without_bis(char **env_bis, int index)
 {
 	char	*tmp;
 	int		i;
-	int		k;
 	int		j;
 
 	if ((tmp = (char*)malloc(sizeof(char) * ft_strlen(env_bis[index]) + 1)) == NULL)
 		return (NULL);
-	i = -1;
-	while (env_bis[++i])
+	i = 0;
+	j = 0;
+	while (env_bis[index][i] != '=')
+		i++;
+	i++;
+	while (env_bis[index][i])
 	{
-		if (i == index)
-		{
-			j = 0;
-			k = 0;
-			while (env_bis[i][j] != '=')
-				j++;
-			j++;
-			while (env_bis[i][j])
-			{
-				tmp[k] = env_bis[i][j];
-				j++;
-				k++;
-			}
-			tmp[k] = '\0';
-		}
+		tmp[j] = env_bis[index][i];
+		j++;
+		i++;
 	}
+	tmp[j] = '\0';
 	return (tmp);
 }
 
-void	ft_env_without(char **av, char **env_bis, int *flag, int index)
+void	ft_env_without(char **av, char **env_bis, int *flag)
 {
-	char	*tmp;
-	int		i;
+	char		*tmp;
+	char		*tmp2;
+	int			i;
+	int			index;
 
 	i = 0;
+	index = 0;
 	while (av[++i])
 	{
 		if ((ft_strchr(av[i], '$')) == NULL)
@@ -56,12 +51,16 @@ void	ft_env_without(char **av, char **env_bis, int *flag, int index)
 			ft_putstr(av[i]);
 			ft_putchar(' ');
 		}
-		if (*flag == 1)
+		if ((ft_strchr(av[i], '$')) != NULL)
+		{
+			tmp2 = ft_strcpy_cara(av[i]);
+			index = ft_get_env(tmp2, env_bis);
+		}
+		if (*flag == 0 && index >= 0)
 		{
 			tmp = ft_env_without_bis(env_bis, index);
 			ft_putstr(tmp);
 			ft_putchar(' ');
-			*flag = 0;
 		}
 	}
 	free(tmp);

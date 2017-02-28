@@ -6,27 +6,25 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/24 10:34:04 by stvalett          #+#    #+#             */
-/*   Updated: 2017/02/24 16:25:59 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/02/28 13:24:01 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void ft_print_env(char **env_bis)
+int	ft_no_digit(char *av)
 {
-  int i;
+	int i;
+	int	flag;
 
-  if (env_bis == NULL)
-  {
-    ft_putstr("ENV is null and cannot be printed\n");
-    return ;
-  }
-  i = 0;
-  while (env_bis[i])
-  {
-    ft_putendl(env_bis[i]);
-    i++;
-  }
+	i = -1;
+	flag = 0;
+	while (av[++i])
+	{
+		if (ft_isdigit(av[i]) == 1)
+			flag = 1;
+	}
+	return (flag);
 }
 
 int	ft_count_env(char **env)
@@ -41,17 +39,17 @@ int	ft_count_env(char **env)
 
 int	ft_free(char **str, int flag)
 {
-  int i;
+	int i;
 
-  i = 0;
-  while (str[i])
-  {
-    free(str[i]);
-    i++;
-  }
-  free(str);
-  if (flag == 1)
-    return (1);
-  else
-    return (0);
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+	if (flag == 1)
+		return (1);
+	else
+		return (0);
 }

@@ -6,11 +6,25 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:44:50 by stvalett          #+#    #+#             */
-/*   Updated: 2017/02/28 11:16:26 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/02/28 13:48:46 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void ft_print_env(char **env_bis)
+{
+  int i;
+
+  if (env_bis == NULL)
+    return ;
+  i = 0;
+  while (env_bis[i])
+  {
+    ft_putendl(env_bis[i]);
+    i++;
+  }
+}
 
 void	ft_print_dollar_bis(char **av, char **env_bis)
 {
@@ -19,22 +33,20 @@ void	ft_print_dollar_bis(char **av, char **env_bis)
 	int				index;
 	int				i;
 
-	i = 0;
 	flag = 0;
 	index = 0;
+	i = 0;
 	while (av[++i])
-	{
-		tmp = ft_strcpy_cara(av[i]);
-		if ((index = ft_get_env(tmp, env_bis)) >= 0)
+		if ((ft_strchr(av[i], '$')) != NULL && ft_no_digit(av[i]) == 0)
 		{
-			flag = 1;
-			break;
+			tmp = ft_strcpy_cara(av[i]);
+			if ((index = ft_get_env(tmp, env_bis)) < 0)
+				flag = 1;
 		}
-	}
-	if (flag == 0)
-		ft_error(av);
+	if (flag == 1)
+		ft_error_dollar(av, env_bis);
 	else
-		ft_env_without(av, env_bis, &flag, index);
+		ft_env_without(av, env_bis, &flag);
 	ft_putchar('\n');
 	free(tmp);
 }
@@ -45,9 +57,9 @@ void	ft_print_dollar(char **av, char **env_bis)
 	int	j;
 
 	i = 0;
+	j = 0;
 	while (av[++i])
 	{
-		j = 0;
 		if (av[i][j] == '$')
 		{
 			while (av[i][j])
@@ -66,6 +78,7 @@ void	ft_print_dollar(char **av, char **env_bis)
 				}
 				j++;
 			}
+			j = 0;
 		}
 	}
 	ft_putchar('\n');
