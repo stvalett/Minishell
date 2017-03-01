@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/24 10:34:04 by stvalett          #+#    #+#             */
-/*   Updated: 2017/02/28 17:01:10 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/01 13:13:12 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,14 @@ int	ft_free(char **str, int flag)
 		return (1);
 	else
 		return (0);
+}
+
+int	ft_count_av(char **av)
+{
+	int i;
+
+	i = 0;
+	while (av[i])
+		i++;
+	return (i);
 }

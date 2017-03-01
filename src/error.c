@@ -6,11 +6,30 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:59:27 by stvalett          #+#    #+#             */
-/*   Updated: 2017/02/28 18:43:06 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/01 16:33:23 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void		ft_error_acco(char **av)
+{
+	char	*tmp;
+	//int		i;
+	//int		count;
+
+	tmp = ft_nosplit(av);
+	ft_putendl(tmp);
+	free(tmp);
+	/*while (av[++i])
+	{
+		tmp = ft_no_metachr(av[i]);
+		ft_putstr_fd(tmp, 2);
+		ft_putstr_fd(": command not found.", 2);
+		free(tmp);
+	}
+	ft_putchar('\n');*/
+}
 
 static char	*ft_error_dollar_bis(char *av, char **env_bis, int *index)
 {

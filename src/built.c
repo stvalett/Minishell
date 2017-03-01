@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 10:45:17 by stvalett          #+#    #+#             */
-/*   Updated: 2017/02/27 17:22:35 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/01 17:31:20 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_check_dollar_n_acco(char **av, int *flag)
   {
     if ((ft_strchr(av[i], '$')) != NULL)
       count++;
-    if ((ft_strchr(av[i], '"')) != NULL)
+    if ((ft_strchr(av[i], '"')) != NULL && ft_strcmp(av[i], "\"echo\"") != 0)
       count2++;
   }
   if (count >= 1 && count2 >= 1)
