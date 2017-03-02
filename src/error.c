@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:59:27 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/02 14:52:26 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/02 18:08:18 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_error_dollar(char **av, char **env_bis)
 		}
 }
 
-char *ft_error_acco(char *line, char **av)
+char *ft_error_acco(char *line, char **av, int flag)
 {
 	char	*tmp;
 	int 	count;
@@ -80,8 +80,12 @@ char *ft_error_acco(char *line, char **av)
 	count = 0;
 	tmp = NULL;
 	while (line[++i])
-		if (line[i] == '"')
+	{
+		if (line[i] == '"' && flag == 1)
 			count++;
+		else if (line[i] == '\'' && flag == 0)
+			count++;
+	}
 	if (count % 2 == 1 && ft_is_dollar_n_acco(av) == 0)
 		ft_putendl_fd("Unmatched .", 2);
 	else if (ft_is_dollar_n_acco(av) == 1)
@@ -90,11 +94,11 @@ char *ft_error_acco(char *line, char **av)
 	{
 		if ((tmp = (char *)malloc(sizeof(char) * ft_strlen(line) + 1)) == NULL)
 			return (NULL);
-		i = -1;
+		i = 0;
 		j = 0;
-		while (line[++i] == '"' && line[i])
-			;
-		while (line[i] != '"' && line[i])
+		while ((line[i] == '"' || line[i] == '\'') && line[i])
+			i++;
+		while (line[i] != '"' && line[i] != '\'' && line[i])
 		{
 			tmp[j] = line[i];
 			i++;

@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:44:50 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/02 16:22:38 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/02 18:06:07 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,8 @@ void	ft_print_dollar(char **av, char **env_bis)
 		j = 0;
 		while (av[i][j])
 		{	
-			/*  if (av[i][j] == '$' && (av[i][j + 1] == ' ' || av[i][j + 1] == '\0'))
-				{
-				ft_putchar(av[i][j]);
-				ft_putchar(' ');
-				}*/
 			if (av[i][j] == '$' && ft_isdigit(av[i][j + 1]) == 1)
-			{
 				;
-			}
 			if ((av[i][j] == '$' && ft_isalpha(av[i][j + 1]) == 1) || av[i][j] == '$')
 			{
 				ft_print_dollar_bis(av, env_bis);
@@ -116,7 +109,7 @@ int		ft_print_acco(char **av, int flag)
 	{
 		j = -1;
 		while (av[i][++j])
-			if (av[i][j] == '"')
+			if (av[i][j] == '"' || av[i][j] == '\'')
 				count++;
 	}
 	if (count % 2 == 1  && ft_is_dollar_n_acco(av) == 0)

@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:46 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/02 15:02:43 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/02 17:26:22 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		ft_count_env(char **env);
 int		ft_no_digit(char *av);
 int		ft_print_one_dollar(char *av);
 int		ft_count_av(char **av);
-int		ft_is_acco(char *line);
+int		ft_is_acco(char *line, int *flag);
 int		ft_is_dollar_n_acco(char **av);
 char	*ft_no_metachr(char *str);
 char	*ft_strcpy_cara(char *av);
@@ -56,6 +56,6 @@ void	ft_print_dollar(char **av, char **env_bis);
 void		ft_print_dollar_n_acco(char **av, char **env_bis, int flag);
 void	ft_env_without(char **av, char **env_bis);
 void	ft_error_dollar(char **av, char **env_bis);
-char 	*ft_error_acco(char *line, char **av);
+char 	*ft_error_acco(char *line, char **av, int flag);
 
 #endif

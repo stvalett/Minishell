@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:23:45 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/02 14:50:12 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/02 17:58:36 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static int	ft_cmd_basic(char **av, char ***env)
 	//return (ft_cmd_exit());
 	else if ((ft_strcmp(av[0], "cd")) == 0)
 		return (ft_cmd_cd(av, *env));
-	else if (ft_strcmp(av[0], "echo")  == 0 || ft_strcmp(av[0], "\"echo\"") == 0)
+	else if (ft_strcmp(av[0], "echo")  == 0 || ft_strcmp(av[0], "\"echo\"") == 0
+			|| ft_strcmp(av[0], "\'echo\'") == 0)
 		return (ft_cmd_echo(av, *env));
 	else if (ft_strcmp(av[0], "env") == 0 || ft_strcmp(av[0], "ENV") == 0)
 		return (ft_cmd_env(av, env));
@@ -89,12 +90,14 @@ static char	*ft_get_path(char *av, char **env)
 static int	ft_cmd_exec_child(char **av, char **env, char *line)
 {
 	char	*tmp;
+	int		flag;
 
+	flag = 0;
 	if ((execve(ft_get_path(av[0], env), av, env)) < 0)
 	{
-		if (ft_is_acco(line) == 1)
+		if (ft_is_acco(line, &flag) == 1)
 		{
-			tmp = ft_error_acco(line, av);
+			tmp = ft_error_acco(line, av, flag);
 			if (tmp != NULL)
 			{
 				ft_putstr_fd(tmp, 2);

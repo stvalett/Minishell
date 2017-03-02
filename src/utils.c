@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/24 10:38:53 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/02 15:16:34 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/02 17:45:26 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char	*ft_env_without_bis(char **env_bis, int index)
 
 void	ft_env_without(char **av, char **env_bis)
 {
-	char		*tmp;
+	char	*tmp;
 	int		i;
 	int		index;
 
@@ -53,18 +53,18 @@ void	ft_env_without(char **av, char **env_bis)
 		if ((ft_strchr(av[i], '$')) != NULL)
 		{
 			tmp = ft_strcpy_cara(av[i]);
-			if ((ft_strcmp(tmp, "$")) == 0)
+		/*	if ((ft_strcmp(tmp, "$")) == 0)
 			{
 				free(tmp);
 				tmp = NULL;
 			}
-			else
+			else*/
 				index = ft_get_env(tmp, env_bis);
 		}
 		if (index >= 0 && tmp != NULL)
 		{
 			tmp = ft_env_without_bis(env_bis, index);
-			//ft_putstr(tmp);
+			ft_putstr(tmp);
 			free(tmp);
 		}
 		ft_putchar(' ');
