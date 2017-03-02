@@ -35,7 +35,7 @@ static char	*ft_env_without_bis(char **env_bis, int index)
   return (tmp);
 }
 
-void	ft_env_without(char **av, char **env_bis, int *flag)
+void	ft_env_without(char **av, char **env_bis)
 {
   char		*tmp;
   char		*tmp2;
@@ -45,23 +45,39 @@ void	ft_env_without(char **av, char **env_bis, int *flag)
   i = 0;
   index = 0;
   while (av[++i])
+  {
     if (ft_print_one_dollar(av[i]) == 1)
+    {
+      ft_putstr("A");
       ft_putstr(av[i]);
+    }
     if ((ft_strchr(av[i], '$')) == NULL)
+    {
+      ft_putstr("B");
       ft_putstr(av[i]);
+    }
     if ((ft_strchr(av[i], '$')) != NULL)
     {
+      ft_putstr("C");
       tmp2 = ft_strcpy_cara(av[i]);
-      index = ft_get_env(tmp2, env_bis);
-      free(tmp2);
+      if ((ft_strcmp(tmp2, "$")) == 0)
+      {
+	ft_putendl("HELLO");
+	free(tmp2);
+	tmp2 = NULL;
+      }
+      else
+	index = ft_get_env(tmp2, env_bis);
     }
-    if (*flag == 0 && index >= 0)
+    if (index >= 0 && tmp2 != NULL)
     {
+      ft_putstr("D");
       tmp = ft_env_without_bis(env_bis, index);
       ft_putstr(tmp);
       free(tmp);
     }
     ft_putchar(' ');
+  }
 }
 
 char	*ft_strcpy_cara(char *av)
