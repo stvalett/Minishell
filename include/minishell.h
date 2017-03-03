@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:46 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/02 17:26:22 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/03 12:24:55 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*ft_strcpy_cara(char *av);
 char	**ft_cpy_env(char **env, int len, char *path);
 char	**ft_add_env(const char *line, const char *value, char **env);
 char	**ft_setenv(const char *line, const char *value, char **env);
-char	**ft_unsetenv(const char *line, const char *value, char **env);
+char	**ft_unsetenv(const char *line, const char *value, char **env_bis);
 char	**ft_get_av(char *line, char **env);
 char	*ft_get_home(char **env);
 void	ft_print_env(char **env_bis);

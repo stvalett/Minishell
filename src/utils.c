@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/24 10:38:53 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/02 17:45:26 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/03 12:01:39 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ void	ft_env_without(char **av, char **env_bis)
 		if ((ft_strchr(av[i], '$')) != NULL)
 		{
 			tmp = ft_strcpy_cara(av[i]);
-		/*	if ((ft_strcmp(tmp, "$")) == 0)
-			{
+			/*	if ((ft_strcmp(tmp, "$")) == 0)
+				{
 				free(tmp);
 				tmp = NULL;
-			}
-			else*/
-				index = ft_get_env(tmp, env_bis);
+				}
+				else*/
+			index = ft_get_env(tmp, env_bis);
 		}
 		if (index >= 0 && tmp != NULL)
 		{
@@ -93,33 +93,33 @@ char	*ft_strcpy_cara(char *av)
 	return (tmp);
 }
 
-char	**ft_cpy_env(char **env, int len, char *path)
+char	**ft_cpy_env(char **env_bis, int len, char *path)
 {
 	char		**tmp;
-	int		count;
-	int		i;
+	int			count;
+	int			i;
 	static int	len_bis = 0;
 
 	len_bis += len;
-	count = ft_count_env(env);
+	count = ft_count_env(env_bis);
 	if ((tmp = (char **)malloc(sizeof(char *) * (count + len_bis + 1))) == NULL)
 		return (NULL);
 	i = -1;
 	while (++i < count)
 	{
-		if ((tmp[i] = (char *)malloc(sizeof(char) * (ft_strlen(env[i]) + 1))) == NULL)
+		if ((tmp[i] = (char *)malloc(sizeof(char) * (ft_strlen(env_bis[i]) + 1))) == NULL)
 			return (NULL);
-		tmp[i] = ft_strcpy(tmp[i], env[i]);
+		tmp[i] = ft_strcpy(tmp[i], env_bis[i]);
 	}
 	if (path == NULL)
-	{
 		tmp[i] = NULL;
-		return (tmp);
+	else
+	{
+		if ((tmp[i] = (char *)malloc(sizeof(char) * (ft_strlen(path) + 1))) == NULL)
+			return (NULL);
+		tmp[i] = ft_strcpy(tmp[i], path);
+		tmp[i + 1] = NULL;
 	}
-	if ((tmp[i] = (char *)malloc(sizeof(char) * (ft_strlen(path) + 1))) == NULL)
-		return (NULL);
-	tmp[i] = ft_strcpy(tmp[i], path);
-	tmp[i + 1] = NULL;
 	return (tmp);
 }
 
@@ -137,6 +137,6 @@ char	**ft_add_env(const char *line, const char *value, char **env_bis)
 	ft_strcat(path, value);
 	tmp = ft_cpy_env(env_bis, 1, path);
 	free(path);
-	ft_free(env_bis, 1);
+	ft_free(env_bis, 0);
 	return (tmp);
 }

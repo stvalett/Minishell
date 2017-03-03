@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:44:50 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/02 18:06:07 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/03 12:11:25 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void ft_print_env(char **env_bis)
 {
 	int i;
 
-	if (env_bis == NULL)
-		return ;
 	i = 0;
 	while (env_bis[i])
 	{

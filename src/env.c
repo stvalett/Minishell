@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:08 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/02 12:49:35 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/03 12:32:39 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ static char *ft_get_env_bis(char *av)
 		i++;
 	}
 	tmp[j] = '\0';
-	return (tmp);
+	av = tmp;
+	free(tmp);
+	return (av);
 }
 
 char	*ft_unsetenv_bis(char *str)
@@ -55,7 +57,7 @@ char	*ft_unsetenv_bis(char *str)
 	return (tmp);
 }
 
-char	**ft_unsetenv(const char *line, const char *value, char **env)
+char	**ft_unsetenv(const char *line, const char *value, char **env_bis)
 {
 	char	*path;
 	char	**tmp;
@@ -72,22 +74,23 @@ char	**ft_unsetenv(const char *line, const char *value, char **env)
 	ft_strcat(path, value);
 	i = 0;
 	j = 0;
-	count = ft_count_env(env);
+	count = ft_count_env(env_bis);
 	if ((tmp = (char **)malloc(sizeof(char *) * count + 1)) == NULL)
 		return (NULL);
 	while (i < count)
 	{
-		if ((ft_strncmp(env[i], path, ft_strlen(path))) == 0)
+		if ((ft_strncmp(env_bis[i], path, ft_strlen(path))) == 0)
 			;
 		else
 		{
-			tmp[j] = ft_unsetenv_bis(env[i]);
+			tmp[j] = ft_unsetenv_bis(env_bis[i]);
 			j++;
 		}
 		i++;
 	}
 	tmp[j] = NULL;
-	ft_free(env, 1);
+	free(path);
+	ft_free(env_bis, 0);
 	return (tmp);
 }
 
@@ -107,8 +110,8 @@ char	**ft_setenv(const char *line, const char *value, char **env_bis)
 	if (i >= 0)
 		env_bis[i] = path;
 	else
-		return (ft_add_env(line, value, env_bis));
-	return (env_bis);
+		free(path);
+	return (ft_add_env(line, value, env_bis));
 }
 
 int	ft_get_env(char *line, char **env_bis)
@@ -131,11 +134,11 @@ int	ft_get_env(char *line, char **env_bis)
 		if ((ft_strcmp(tmp, path)) == 0)
 		{
 			free(path);
-			free(tmp);
+		//	free(tmp);
 			return (i);
 		}
 	}
-	free(tmp);
+	//free(tmp);
 	free(path);
 	return (-1);
 }
