@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:46 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/03 12:24:55 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/07 10:24:24 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 #include <fcntl.h>
 
 int		ft_cmd_env(char **av, char ***env);
-int		ft_cmd_exec(char *line, char ***env);
-int		ft_cmd_cd(char **av, char **env);
+int		ft_cmd_exec(char *line, char ***env_bis);
+int		ft_cmd_cd(char **av, char ***env_bis);
 int		ft_cmd_setenv(char **av, char ***env);
 int		ft_cmd_unsetenv(char **av, char ***env);
 int		ft_cmd_echo(char **av, char **env_bis);

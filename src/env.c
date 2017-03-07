@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:08 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/03 12:32:39 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/07 11:23:23 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ static char *ft_get_env_bis(char *av)
 		i++;
 	}
 	tmp[j] = '\0';
-	av = tmp;
-	free(tmp);
-	return (av);
+	return (tmp);
 }
 
 char	*ft_unsetenv_bis(char *str)
@@ -117,6 +115,7 @@ char	**ft_setenv(const char *line, const char *value, char **env_bis)
 int	ft_get_env(char *line, char **env_bis)
 {
 	int 	i;
+	int		j;
 	char	*path;
 	char	*tmp;
 
@@ -124,9 +123,16 @@ int	ft_get_env(char *line, char **env_bis)
 		return (-1);
 	//ft_strcat(path, "=");
 	i = -1;
+	j = 0;
 	while (line[++i])
-		if (line[i] != '=')
-			path[i] = line[i];
+	{
+		if (line[i] == '=')
+			break;
+		else
+			path[j] = line[i];
+		j++;
+	}
+	path[j] = '\0';
 	i = -1;
 	while (env_bis[++i])
 	{
@@ -134,11 +140,11 @@ int	ft_get_env(char *line, char **env_bis)
 		if ((ft_strcmp(tmp, path)) == 0)
 		{
 			free(path);
-		//	free(tmp);
+			free(tmp);
 			return (i);
 		}
 	}
-	//free(tmp);
+	free(tmp);
 	free(path);
 	return (-1);
 }

@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:31 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/03 11:23:49 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/07 10:28:28 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,22 @@ static int	ft_get_prompt(char ***env_bis)
 {
 //  pid_t 	pid;
   int	ret;
+ // int	index;
   char	*line;
+  //static int count = 0;
 
+  /*if (count == 2)
+  {
+	  ft_putendl("HELLO");
+	  index = ft_get_env("PWD", env);
+	  ft_putendl(env[index]);
+	  *env_bis = ft_setenv("PWD", env[index], *env_bis);
+  }*/
   ft_putstr("Minishell $> ");
   get_next_line(0, &line);
   ret = ft_cmd_exec(line, env_bis);
   free(line);
+  //count++;
   //waitpid(pid, NULL, 0);
   return (ret);
 }

@@ -6,13 +6,13 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:23:45 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/03 11:21:31 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/07 10:25:36 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static int	ft_cmd_basic(char **av, char ***env)
+static int	ft_cmd_basic(char **av, char ***env_bis)
 {
 	if (*av == NULL)
 		return (1);
@@ -20,16 +20,16 @@ static int	ft_cmd_basic(char **av, char ***env)
 		return (1);
 	//return (ft_cmd_exit());
 	else if ((ft_strcmp(av[0], "cd")) == 0)
-		return (ft_cmd_cd(av, *env));
+		return (ft_cmd_cd(av, env_bis));
 	else if (ft_strcmp(av[0], "echo")  == 0 || ft_strcmp(av[0], "\"echo\"") == 0
 			|| ft_strcmp(av[0], "\'echo\'") == 0)
-		return (ft_cmd_echo(av, *env));
+		return (ft_cmd_echo(av, *env_bis));
 	else if (ft_strcmp(av[0], "env") == 0 || ft_strcmp(av[0], "ENV") == 0)
-		return (ft_cmd_env(av, env));
+		return (ft_cmd_env(av, env_bis));
 	else if ((ft_strcmp(av[0], "setenv")) == 0)
-		return (ft_cmd_setenv(av, env));
+		return (ft_cmd_setenv(av, env_bis));
 	else if ((ft_strcmp(av[0], "unsetenv")) == 0)
-		return (ft_cmd_unsetenv(av, env));
+		return (ft_cmd_unsetenv(av, env_bis));
 	return (0);
 }
 

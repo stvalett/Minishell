@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:23:52 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/03 13:42:04 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/07 11:24:35 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	ft_cmd_setenv(char **av, char ***env)
 	return (1);
 }
 
-int	ft_cmd_cd(char **av, char **env)
+int	ft_cmd_cd(char **av, char ***env_bis)
 {
 	char	*path;
 
@@ -87,13 +87,13 @@ int	ft_cmd_cd(char **av, char **env)
 	}
 	else
 	{
-		if ((path = ft_get_home(env)) != NULL && chdir(path) < 0)
+		ft_putendl("HELLO");
+		if ((path = ft_get_home(*env_bis)) != NULL && chdir(path) < 0)
 		{
 			ft_putstr_fd("cd: No such file or directory: ", 2);
 			ft_putstr_fd(av[1], 2);
 		}
 	}
-	env = ft_setenv("PWD", path, env);
 	return (1);
 }
 
