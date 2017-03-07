@@ -95,8 +95,10 @@ char	**ft_unsetenv(const char *line, const char *value, char **env_bis)
 char	**ft_setenv(const char *line, const char *value, char **env_bis)
 {
 	char	*path;
-	int	len;
-	int	i;
+    char    **tmp;
+	int	    len;
+    int     j;
+	int	    i;
 
 	len = (ft_strlen(line) + 1) + (ft_strlen(value) + 1);
 	if ((path = (char *)malloc(sizeof(char) * len)) == NULL)
@@ -106,9 +108,26 @@ char	**ft_setenv(const char *line, const char *value, char **env_bis)
 	ft_strcat(path, value);
 	i = ft_get_env(path, env_bis);
 	if (i >= 0)
-		env_bis[i] = path;
-	else
-		free(path);
+    {
+        if ((tmp = (char **)malloc(sizeof(char *) * ft_count_env(env_bis) + 1)) == NULL)
+            return (NULL);
+        j = 0;
+        while (env_bis[j])
+        {
+            if ((tmp[j] = (char *)malloc(sizeof(char) * ft_strlen(env_bis[j]) + 1)) == NULL)
+                return (NULL);
+            if (j == i)
+                tmp[j] = ft_strcpy(tmp[j], path);
+            else
+                tmp[j] = ft_strcpy(tmp[j], env_bis[j]);
+            j++;
+        }
+        tmp[j] = NULL;
+        ft_free(env_bis, 0);
+        free(path);
+        return (tmp);
+    }
+	free(path);
 	return (ft_add_env(line, value, env_bis));
 }
 

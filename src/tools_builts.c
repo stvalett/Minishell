@@ -12,6 +12,80 @@
 
 #include "../include/minishell.h"
 
+static char    *ft_pwdbis(char *str)
+{
+    int     i;
+    int     j;
+    char    *tmp2;
+
+    if ((tmp2 = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1))) == NULL)
+        return (NULL);
+    i = 0;
+    j = 0;
+    while (str[i] != '=')
+        i++;
+    i++;
+    while (str[i])
+    {
+        tmp2[j] = str[i];
+        j++;
+        i++;
+    }
+    tmp2[j] = '\0';
+    return (tmp2);
+}
+
+char    *ft_oldpwd(char ***env_bis)
+{
+    int     index;
+    int     i;
+    int     j;
+    char    *tmp;
+
+    index = ft_get_env("PWD", *env_bis);
+    if ((tmp = (char *)malloc(sizeof(char) * (ft_strlen(env_bis[0][index]) + 1))) == NULL)
+        return (NULL);
+    i = 0;
+    while (env_bis[0][index][i] != '=')
+        i++;
+    i++;
+    j = 0;
+    while (env_bis[0][index][i])
+    {
+        tmp[j] = env_bis[0][index][i];
+        j++;
+        i++;
+    }
+    tmp[j] = '\0';
+    return (tmp);
+}
+
+char    *ft_pwd(char ***env_bis)
+{
+    int     i;
+    int     j;
+    int     index;
+    char    *tmp;
+    char    *str;
+
+    index = ft_get_env("PWD", *env_bis);
+    if ((tmp = (char *)malloc(sizeof(char) * (ft_strlen(env_bis[0][index]) + 1))) == NULL)
+        return (NULL);
+    j = ft_strlen(env_bis[0][index]) - 1;
+    while (env_bis[0][index][j] != '/')
+        j--;
+    i = 0;
+    while (env_bis[0][index][i] && i < j)
+    {
+        tmp[i] = env_bis[0][index][i];
+        i++;
+    }
+    tmp[i] = '\0';
+    str = ft_pwdbis(tmp);
+    free(tmp);
+    return (str);
+}
+
 void	ft_check_dollar_n_acco(char **av, int *flag)
 {
   int count;
