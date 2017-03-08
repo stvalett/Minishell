@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:23:52 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/08 15:08:28 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/08 17:24:33 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	ft_cmd_unsetenv(char **av, char ***env)
 
 int	ft_cmd_setenv(char **av, char ***env)
 {
-    ft_putendl("HELLO");
     if (av[1] != NULL)
     {
         if (av[2] != NULL)
@@ -73,25 +72,75 @@ int	ft_cmd_setenv(char **av, char ***env)
     return (1);
 }
 
+static char	*ft_getpwd(char ***env_bis)
+{
+	int 	i;
+	int		j;
+	int		index;
+	char	*tmp;
+
+	index = ft_get_env("PWD", *env_bis);
+	if ((tmp = (char *)malloc(sizeof(char) * (ft_strlen(env_bis[0][index] + 1)))) == NULL)
+		return (NULL);
+	i = 0;
+	while (env_bis[0][index][i] && env_bis[0][index][i] != '=')
+		i++;
+	i++;
+	j = 0;
+	while (env_bis[0][index][i])
+	{
+		tmp[j] = env_bis[0][index][i];
+		i++;
+		j++;
+	}
+	tmp[j] = '\0';
+	return (tmp);
+}
+
 int	ft_cmd_cd(char **av, char ***env_bis)
 {
-    char	*path;
+    char		*path;
+	char		*tmp;
+	char		tmp2[1024];
+	static char	*test;
+	static int count;
 
+	tmp = ft_getpwd(env_bis);
+	getcwd(tmp2, sizeof(tmp2));
+	test = tmp2;
+	ft_putendl(test);
     if (av[1] != NULL)
     {
         path = av[1];
-		if (chdir(path) < 0)
-			ft_print_error(av[1]);
+		ft_putnbr(count);
+		ft_putchar('\n');
+		if ((ft_strncmp(path, "-", 1)) == 0 && count % 2 == 1)
+		{
+			ft_putendl("HELLO");
+			if(chdir(tmp) < 0)
+				ft_print_error(av[1]);
+		}
+		else if ((ft_strncmp(path, "-", 1)) == 0 && count % 2 == 0)
+		{
+			ft_putendl("BONJOUR");
+			if(chdir(test) < 0)
+				ft_print_error(av[1]);
+		}
+		else 
+		{
+			if (chdir(path) < 0)
+				ft_print_error(av[1]);
+		}
         if ((ft_strncmp(av[1], "..", ft_strlen(av[1]))) == 0)
             ft_print_pwd_n_oldpwd(env_bis);
         else
             ft_printadd_pwd_n_oldpwd(env_bis, av[1]);
     }
     else
-    {
-        if ((path = ft_get_home(*env_bis)) != NULL && chdir(path) < 0)
+		if ((path = ft_get_home(*env_bis)) != NULL && chdir(path) < 0)
 			ft_print_error(av[1]);
-    }
+	count++;
+	free(tmp);
     return (1);
 }
 
