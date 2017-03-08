@@ -6,13 +6,13 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:31 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/08 12:27:49 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/08 15:09:34 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static char	*ft_getpwd(char ***env_bis)
+/*static char	*ft_getpwd(char ***env_bis)
 {
 	int 	i;
 	int		j;
@@ -35,7 +35,7 @@ static char	*ft_getpwd(char ***env_bis)
 	}
 	tmp[j] = '\0';
 	return (tmp);
-}
+}*/
 
 static void ft_shlv_bis(char ***env_bis, int *add)
 {
@@ -99,24 +99,19 @@ static void ft_shlv(char ***env_bis, char **av)
 
 static int		ft_get_prompt(char ***env_bis, char **av)
 {
-	//  pid_t 	pid;
-	int	    		ret;
-	char			*line;
-	static char 	*save_pwd;
+	int	   		ret;
+	char		*line;
 
+	line = NULL;
 	ret = 0;
-	save_pwd = NULL;
 	ft_shlv(env_bis, av);
-	save_pwd = ft_getpwd(env_bis);
 	ft_putstr("Minishell $> ");
 	get_next_line(0, &line);
 	if (line != NULL)
 	{
-		ret = ft_cmd_exec(line, env_bis, save_pwd);
+		ret = ft_cmd_exec(line, env_bis);
 		free(line);
 	}
-	free(save_pwd);
-	//waitpid(pid, NULL, 0);
 	return (ret);
 }
 

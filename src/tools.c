@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/24 10:34:04 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/08 09:46:54 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/08 13:45:56 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int	ft_free(char **str, int flag)
 	int i;
 
 	i = 0;
+	if (str == NULL)
+		return (0);
 	while (str[i])
 	{
 		free(str[i]);
