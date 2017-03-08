@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 13:13:26 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/02 17:49:49 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/08 10:03:33 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,10 @@ int	ft_is_dollar_n_acco(char **av)
 		}
 	}
 	return (0);
+}
+
+void	ft_print_error(char *av)
+{
+	ft_putstr_fd("cd: No such file or directory: ", 2);
+	ft_putendl_fd(av, 2);
 }

@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:37 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/01 17:24:21 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/08 12:01:23 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	**ft_get_av(char *line, char **env_bis)
   if (av == NULL)
   {
     ft_putendl_fd("av == NULL", 2);
-    ft_free(av, 0);
+    //ft_free(av, 0);
     return (NULL);
   }
   else

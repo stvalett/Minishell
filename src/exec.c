@@ -6,13 +6,13 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:23:45 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/07 10:25:36 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/08 12:27:20 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static int	ft_cmd_basic(char **av, char ***env_bis)
+static int	ft_cmd_basic(char **av, char ***env_bis, char *save_pwd)
 {
 	if (*av == NULL)
 		return (1);
@@ -20,7 +20,7 @@ static int	ft_cmd_basic(char **av, char ***env_bis)
 		return (1);
 	//return (ft_cmd_exit());
 	else if ((ft_strcmp(av[0], "cd")) == 0)
-		return (ft_cmd_cd(av, env_bis));
+		return (ft_cmd_cd(av, env_bis, save_pwd));
 	else if (ft_strcmp(av[0], "echo")  == 0 || ft_strcmp(av[0], "\"echo\"") == 0
 			|| ft_strcmp(av[0], "\'echo\'") == 0)
 		return (ft_cmd_echo(av, *env_bis));
@@ -115,14 +115,14 @@ static int	ft_cmd_exec_child(char **av, char **env, char *line)
 	return (1);
 }
 
-int	ft_cmd_exec(char *line, char ***env_bis)
+int	ft_cmd_exec(char *line, char ***env_bis, char *save_pwd)
 {
 	char	**av;
 	pid_t	pid;
 
 	if ((av = ft_get_av(line, *env_bis)) != NULL)
 	{
-		if ((ft_cmd_basic(av, env_bis)) == 0)
+		if ((ft_cmd_basic(av, env_bis, save_pwd)) == 0)
 		{
 			pid = fork();
 			if (pid > 0)
@@ -143,6 +143,6 @@ int	ft_cmd_exec(char *line, char ***env_bis)
 			}
 		}
 	}
-	ft_free(av, 0);
+	//ft_free(av, 0);
 	return (1);
 }

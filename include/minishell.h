@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:46 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/07 10:24:24 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/08 11:10:45 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 #include <fcntl.h>
 
 int		ft_cmd_env(char **av, char ***env);
-int		ft_cmd_exec(char *line, char ***env_bis);
-int		ft_cmd_cd(char **av, char ***env_bis);
+int		ft_cmd_exec(char *line, char ***env_bis, char *svae_pwd);
+int		ft_cmd_cd(char **av, char ***env_bis, char *save_pwd);
 int		ft_cmd_setenv(char **av, char ***env);
 int		ft_cmd_unsetenv(char **av, char ***env);
 int		ft_cmd_echo(char **av, char **env_bis);
@@ -51,14 +51,14 @@ char	**ft_setenv(const char *line, const char *value, char **env);
 char	**ft_unsetenv(const char *line, const char *value, char **env_bis);
 char	**ft_get_av(char *line, char **env);
 char	*ft_get_home(char **env);
-int    ft_printadd_pwd_n_oldpwd(char ***env_bis, char *av);
-int    ft_print_pwd_n_oldpwd(char ***env_bis);
+int		ft_printadd_pwd_n_oldpwd(char ***env_bis, char *av);
+int		ft_print_pwd_n_oldpwd(char ***env_bis);
+int		ft_print_acco(char **av, int flag);
+void	ft_print_error(char *av);
 void	ft_print_env(char **env_bis);
 void	ft_check_dollar_n_acco(char **av, int *flag);
-int		ft_print_acco(char **av, int flag);
 void	ft_print_dollar(char **av, char **env_bis);
-//void	ft_print_dollar_bis(char **av, char **env_bis);
-void		ft_print_dollar_n_acco(char **av, char **env_bis, int flag);
+void	ft_print_dollar_n_acco(char **av, char **env_bis, int flag);
 void	ft_env_without(char **av, char **env_bis);
 void	ft_error_dollar(char **av, char **env_bis);
 char 	*ft_error_acco(char *line, char **av, int flag);

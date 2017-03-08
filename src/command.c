@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:23:52 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/07 11:24:35 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/08 11:15:38 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,18 +73,23 @@ int	ft_cmd_setenv(char **av, char ***env)
     return (1);
 }
 
-int	ft_cmd_cd(char **av, char ***env_bis)
+int	ft_cmd_cd(char **av, char ***env_bis, char *save_pwd)
 {
     char	*path;
 
     if (av[1] != NULL)
     {
         path = av[1];
-        if (chdir(path) < 0)
-        {
-            ft_putstr_fd("cd: No such file or directory: ", 2);
-            ft_putstr_fd(av[1], 2);
-        }
+		if ((ft_strncmp(av[1], "-", 1)) == 0)
+		{
+			ft_putendl("HELLO");
+			ft_putendl(save_pwd);
+			if (chdir(save_pwd) < 0)
+				ft_print_error(av[1]);
+		}
+		else
+			if (chdir(path) < 0)
+				ft_print_error(av[1]);
         if ((ft_strncmp(av[1], "..", ft_strlen(av[1]))) == 0)
             ft_print_pwd_n_oldpwd(env_bis);
         else
@@ -93,10 +98,7 @@ int	ft_cmd_cd(char **av, char ***env_bis)
     else
     {
         if ((path = ft_get_home(*env_bis)) != NULL && chdir(path) < 0)
-        {
-            ft_putstr_fd("cd: No such file or directory: ", 2);
-            ft_putstr_fd(av[1], 2);
-        }
+			ft_print_error(av[1]);
     }
     return (1);
 }
