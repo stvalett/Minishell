@@ -18,11 +18,12 @@ static char    *ft_pwdbis(char *str)
     int     j;
     char    *tmp2;
 
+    tmp2 = NULL;
     if ((tmp2 = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1))) == NULL)
         return (NULL);
     i = 0;
     j = 0;
-    while (str[i] != '=')
+    while (str[i] != '=' && str[i])
         i++;
     i++;
     while (str[i])
@@ -42,11 +43,12 @@ char    *ft_oldpwd(char ***env_bis)
     int     j;
     char    *tmp;
 
+    tmp = NULL;
     index = ft_get_env("PWD", *env_bis);
     if ((tmp = (char *)malloc(sizeof(char) * (ft_strlen(env_bis[0][index]) + 1))) == NULL)
         return (NULL);
     i = 0;
-    while (env_bis[0][index][i] != '=')
+    while (env_bis[0][index][i] != '=' && env_bis[0][index][i])
         i++;
     i++;
     j = 0;
@@ -68,6 +70,8 @@ char    *ft_pwd(char ***env_bis)
     char    *tmp;
     char    *str;
 
+    str = NULL;
+    tmp = NULL;
     index = ft_get_env("PWD", *env_bis);
     if ((tmp = (char *)malloc(sizeof(char) * (ft_strlen(env_bis[0][index]) + 1))) == NULL)
         return (NULL);

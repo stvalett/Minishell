@@ -60,6 +60,7 @@ int	ft_cmd_unsetenv(char **av, char ***env)
 
 int	ft_cmd_setenv(char **av, char ***env)
 {
+    ft_putendl("HELLO");
     if (av[1] != NULL)
     {
         if (av[2] != NULL)

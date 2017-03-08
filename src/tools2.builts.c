@@ -23,7 +23,7 @@ char    *ft_add_pwd(char ***env_bis, char *av)
         i++;
     }
     tmp[j] = '\0';
-    ft_strjoin(tmp, "/");
-    ft_strjoin(tmp, av);
+    ft_strcat(tmp, "/");
+    ft_strcat(tmp, av);
     return (tmp);
 }
