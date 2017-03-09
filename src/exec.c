@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:23:45 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/09 11:12:38 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/09 16:02:27 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ int	ft_cmd_exec(char *line, char ***env_bis)
 				return (pid);
 			}
 		}
+		ft_free(av, 0);
 	}
-	//ft_free(av, 0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:44:50 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/03 12:11:25 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/09 16:33:28 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,12 @@ static void ft_print_dollar_bis(char **av, char **env_bis)
             tmp = ft_strcpy_cara(av[i]);
             if ((index = ft_get_env(tmp, env_bis)) < 0)
                 flag = 1;
+			if (tmp)
+				free(tmp);
         }
     }
     if (flag == 1)
-    {
         ft_error_dollar(av, env_bis);
-        free(tmp);
-    }
     else
         ft_env_without(av, env_bis);
     ft_putchar('\n');

@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/24 10:38:53 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/08 09:50:51 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/09 16:35:15 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,9 @@ void	ft_env_without(char **av, char **env_bis)
 		if ((ft_strchr(av[i], '$')) != NULL)
 		{
 			tmp = ft_strcpy_cara(av[i]);
-			/*	if ((ft_strcmp(tmp, "$")) == 0)
-				{
-				free(tmp);
-				tmp = NULL;
-				}
-				else*/
 			index = ft_get_env(tmp, env_bis);
+			if (tmp)
+				free(tmp);
 		}
 		if (index >= 0 && tmp != NULL)
 		{
