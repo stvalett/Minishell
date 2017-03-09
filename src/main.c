@@ -6,36 +6,11 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:31 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/08 15:09:34 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/09 14:56:09 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-/*static char	*ft_getpwd(char ***env_bis)
-{
-	int 	i;
-	int		j;
-	int		index;
-	char	*tmp;
-
-	index = ft_get_env("PWD", *env_bis);
-	if ((tmp = (char *)malloc(sizeof(char) * (ft_strlen(env_bis[0][index] + 1)))) == NULL)
-		return (NULL);
-	i = 0;
-	while (env_bis[0][index][i] && env_bis[0][index][i] != '=')
-		i++;
-	i++;
-	j = 0;
-	while (env_bis[0][index][i])
-	{
-		tmp[j] = env_bis[0][index][i];
-		i++;
-		j++;
-	}
-	tmp[j] = '\0';
-	return (tmp);
-}*/
 
 static void ft_shlv_bis(char ***env_bis, int *add)
 {
@@ -73,13 +48,17 @@ static void ft_shlv(char ***env_bis, char **av)
 	int         i;
 	int         add;
 	static int  count;
+	char		*ret;
 
 	i = 0;
 	add = 0;
+	ret = NULL;
 	if (count == 0)
 	{
 		ft_shlv_bis(env_bis, &add);
-		*env_bis = ft_setenv("SHLVL", ft_itoa(count + add + 1), *env_bis);
+		ret = ft_itoa(count + add + 1);
+		*env_bis = ft_setenv("SHLVL", ret, *env_bis);
+		free(ret);
 	}
 	while (av[i])
 	{
@@ -89,7 +68,9 @@ static void ft_shlv(char ***env_bis, char **av)
 					|| ft_strncmp(av[i], "tsh", 3)
 					|| ft_strncmp(av[i], "sh", 2)) == 0)
 		{
-			*env_bis = ft_setenv("SHLVL", ft_itoa(count + add), *env_bis);
+			ret = ft_itoa(count + add);
+			*env_bis = ft_setenv("SHLVL", ret, *env_bis);
+			free(ret);
 			break;
 		}
 		i++;

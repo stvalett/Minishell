@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:08 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/07 11:23:23 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/09 14:50:43 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@ char	**ft_setenv(const char *line, const char *value, char **env_bis)
     int     j;
     int	    i;
 
-    len = (ft_strlen(line) + 1) + (ft_strlen(value) + 1);
-    if ((path = (char *)malloc(sizeof(char) * len)) == NULL)
+    len = ft_strlen(line) + ft_strlen(value);
+    if ((path = (char *)malloc(sizeof(char) * len )) == NULL)
         return (NULL);
     ft_strcpy(path, line);
     ft_strcat(path, "=");
@@ -146,7 +146,6 @@ int	ft_get_env(char *line, char **env_bis)
 
     if ((path = (char *)malloc(sizeof(*path) * ft_strlen(line) + 1)) == NULL)
         return (-1);
-    //ft_strcat(path, "=");
     i = -1;
     j = 0;
     while (line[++i])
@@ -168,8 +167,9 @@ int	ft_get_env(char *line, char **env_bis)
             free(tmp);
             return (i);
         }
+		if (tmp)
+			free(tmp);
     }
-    free(tmp);
     free(path);
     return (-1);
 }
