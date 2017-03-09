@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:46 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/08 15:09:20 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/09 11:57:21 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ int		ft_print_one_dollar(char *av);
 int		ft_count_av(char **av);
 int		ft_is_acco(char *line, int *flag);
 int		ft_is_dollar_n_acco(char **av);
+void	ft_switch_pwd(char ***env_bis);
 char    *ft_oldpwd(char ***env_bis);
+char	*ft_egal(char ***env_bis, int flag);
 char    *ft_pwd(char ***env_bis);
 char    *ft_add_pwd(char ***env_bis, char *av);
 char	*ft_no_metachr(char *str);
@@ -50,9 +52,10 @@ char	**ft_add_env(const char *line, const char *value, char **env);
 char	**ft_setenv(const char *line, const char *value, char **env);
 char	**ft_unsetenv(const char *line, const char *value, char **env_bis);
 char	**ft_get_av(char *line, char **env);
-char	*ft_get_home(char **env);
-int		ft_printadd_pwd_n_oldpwd(char ***env_bis, char *av);
-int		ft_print_pwd_n_oldpwd(char ***env_bis);
+char	*ft_get_home(char ***env_bis);
+int		ft_add_pwd_n_oldpwd(char ***env_bis, char *av, int flag);
+int		ft_pwd_n_oldpwd(char ***env_bis);
+int		ft_pwd_n_oldpwd_bis(char ***env_bis, char *path);
 int		ft_print_acco(char **av, int flag);
 void	ft_print_error(char *av);
 void	ft_print_env(char **env_bis);

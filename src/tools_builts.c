@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 10:45:17 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/02 18:05:49 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/09 11:52:23 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char    *ft_oldpwd(char ***env_bis)
     char    *tmp;
 
     tmp = NULL;
-    index = ft_get_env("PWD", *env_bis);
+	index = ft_get_env("PWD", *env_bis);
     if ((tmp = (char *)malloc(sizeof(char) * (ft_strlen(env_bis[0][index]) + 1))) == NULL)
         return (NULL);
     i = 0;
