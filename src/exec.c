@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:23:45 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/09 16:02:27 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/09 17:57:57 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	ft_cmd_basic(char **av, char ***env_bis)
 	if (*av == NULL)
 		return (1);
 	if ((ft_strcmp(av[0], "exit")) == 0)
-		return (1);
+		exit(0);
 	//return (ft_cmd_exit());
 	else if ((ft_strcmp(av[0], "cd")) == 0)
 		return (ft_cmd_cd(av, env_bis));

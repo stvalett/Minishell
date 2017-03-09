@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:23:52 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/09 16:04:19 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/09 17:36:46 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,21 +54,32 @@ int	ft_cmd_unsetenv(char **av, char ***env)
             *env = ft_unsetenv(av[1], "", *env);
     }
     else
-        ft_putendl_fd("Error too few argument", 2);
+        ft_putendl_fd("setenv: Too many arguments", 2);
     return (1);
 }
 
-int	ft_cmd_setenv(char **av, char ***env)
+int	ft_cmd_setenv(char **av, char ***env_bis)
 {
+	int count;
+
+	count = ft_count_av(av);
+	if (count >= 4)
+	{
+        ft_putendl_fd("Error too few argument", 2);
+		return (1);
+	}
+	else if (count == 1)
+	{
+		ft_print_env(*env_bis);
+		return (1);
+	}
     if (av[1] != NULL)
     {
         if (av[2] != NULL)
-            *env = ft_setenv(av[1], av[2], *env);
+            *env_bis = ft_setenv(av[1], av[2], *env_bis);
         else
-            *env = ft_setenv(av[1], "", *env);
+            *env_bis = ft_setenv(av[1], "", *env_bis);
     }
-    else
-        ft_putendl_fd("Error too few argument", 2);
     return (1);
 }
 
@@ -115,7 +126,12 @@ int	ft_cmd_cd(char **av, char ***env_bis)
 int	ft_cmd_env(char **av, char ***env_bis)
 {
     if (av[1] != NULL)
-        ft_putendl_fd("Error env", 2);
+	{
+		//if ((ft_strncmp(av[1], "-", 2)) == 0)
+		ft_putstr_fd("env: ", 2);
+		ft_putstr_fd(av[1], 2);
+        ft_putendl_fd(": No such file or directory", 2);
+	}
     else
         ft_print_env(*env_bis);
     return (1);

@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:44:50 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/09 16:33:28 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/09 17:23:37 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,9 @@ void	ft_print_dollar_n_acco(char **av, char **env_bis, int flag)
 
 int		ft_print_acco(char **av, int flag)
 {
-    int 	i;
-    int	j;
-    int	count;
+    int		i;
+    int		j;
+    int		count;
     char	*tmp;
 
     count = 0;
