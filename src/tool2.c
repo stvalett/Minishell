@@ -6,11 +6,33 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 13:13:26 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/08 10:03:33 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/10 12:49:19 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+char	*ft_strcpy_cara(char *av)
+{
+	int 	i;
+	int	j;
+	char	*tmp;
+
+	if ((tmp = (char *)malloc(sizeof(char) * ft_strlen(av) + 1)) == NULL)
+		return (NULL);
+	i = -1;
+	j = 0;
+	while (av[++i])
+	{
+		if (av[i] != '$')
+		{
+			tmp[j] = av[i];
+			j++;
+		}
+	}
+	tmp[j] = '\0';
+	return (tmp);
+}
 
 int ft_is_acco(char *line, int *flag)
 {

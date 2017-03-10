@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:46 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/09 17:19:42 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/10 12:35:54 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int		ft_count_av(char **av);
 int		ft_is_acco(char *line, int *flag);
 int		ft_is_dollar_n_acco(char **av);
 void	ft_switch_pwd(char ***env_bis);
+char	*ft_getpath(const char *line, const char *value);
 char    *ft_oldpwd(char ***env_bis);
 char	*ft_egal(char ***env_bis, int flag);
 char    *ft_pwd(char ***env_bis);
@@ -48,7 +49,7 @@ char    *ft_add_pwd(char ***env_bis, char *av);
 char	*ft_no_metachr(char *str);
 char	*ft_strcpy_cara(char *av);
 char	**ft_cpy_env(char **env, int len, char *path);
-char	**ft_add_env(const char *line, const char *value, char **env);
+//char	**ft_add_env(const char *line, const char *value, char **env);
 char	**ft_setenv(const char *line, const char *value, char **env);
 char	**ft_unsetenv(const char *line, const char *value, char **env_bis);
 char	**ft_get_av(char *line, char **env);
