@@ -44,7 +44,7 @@ char    *ft_oldpwd(char ***env_bis)
     char    *tmp;
 
     tmp = NULL;
-	index = ft_get_env("PWD", *env_bis);
+    index = ft_get_env("PWD", *env_bis);
     if ((tmp = (char *)malloc(sizeof(char) * (ft_strlen(env_bis[0][index]) + 1))) == NULL)
         return (NULL);
     i = 0;
@@ -92,57 +92,57 @@ char    *ft_pwd(char ***env_bis)
 
 void	ft_check_dollar_n_acco(char **av, int *flag)
 {
-  int count;
-  int	count2;
-  int i;
+    int count;
+    int	count2;
+    int i;
 
-  i = -1;
-  count = 0;
-  count2 = 0;
-  while (av[++i])
-  {
-    if ((ft_strchr(av[i], '$')) != NULL)
-      count++;
-    if (((ft_strchr(av[i], '"')) != NULL  || ft_strchr(av[i], '\'') != NULL)
-			&& ft_strcmp(av[i], "\"echo\"") != 0)
-      count2++;
-  }
-  if (count >= 1 && count2 >= 1)
-    *flag = 2;
-  else if(count >= 1 && !count2)
-    *flag = 1;
-  else if (count2 >= 1 && !count)
-    *flag = 3;
-  else
-    *flag = 0;
+    i = -1;
+    count = 0;
+    count2 = 0;
+    while (av[++i])
+    {
+        if ((ft_strchr(av[i], '$')) != NULL)
+            count++;
+        if (((ft_strchr(av[i], '"')) != NULL  || ft_strchr(av[i], '\'') != NULL)
+                && ft_strcmp(av[i], "\"echo\"") != 0)
+            count2++;
+    }
+    if (count >= 1 && count2 >= 1)
+        *flag = 2;
+    else if(count >= 1 && !count2)
+        *flag = 1;
+    else if (count2 >= 1 && !count)
+        *flag = 3;
+    else
+        *flag = 0;
 }
 
 char	*ft_no_metachr(char *av)
 {
-  char		*str;
-  char const	*start;
-  char const	*end;
+    char		*str;
+    char const	*start;
+    char const	*end;
 
-  start = NULL;
-  if (!av)
-    return (av);
-  while (*av)
-  {
-    if (!(*av == '"' || *av == '\''))
+    start = NULL;
+    if (!av)
+        return (av);
+    while (*av)
     {
-      start = (start == NULL) ? av : start;
-      end = av;
+        if (!(*av == '"' || *av == '\''))
+        {
+            start = (start == NULL) ? av : start;
+            end = av;
+        }
+        av++;
     }
-    av++;
-  }
-  if (start == NULL)
-    return (ft_strnew(1));
-  if ((str = (char *)malloc(sizeof(*str) * (end - start) + 2)) == NULL)
-    return (NULL);
-  av = (char *)start;
-  while (av <= end)
-    *str++ = *av++;
-  *str = '\0';
-  return (str - (end - start + 1));
+    if (start == NULL)
+        return (ft_strnew(1));
+    if ((str = (char *)malloc(sizeof(*str) * (end - start) + 2)) == NULL)
+        return (NULL);
+    av = (char *)start;
+    while (av <= end)
+        *str++ = *av++;
+    *str = '\0';
+    return (str - (end - start + 1));
 
 }

@@ -60,25 +60,15 @@ int	ft_cmd_unsetenv(char **av, char ***env)
 
 int	ft_cmd_setenv(char **av, char ***env_bis)
 {
-	int count;
-
-	count = ft_count_av(av);
-	if (count >= 4)
-	{
-        ft_putendl_fd("Error too few argument", 2);
-		return (1);
-	}
-	else if (count == 1)
-	{
-		ft_print_env(*env_bis);
-		return (1);
-	}
-    if (av[1] != NULL)
+    if (ft_check_setenv(av, env_bis) == 0)
     {
-        if (av[2] != NULL)
-            *env_bis = ft_setenv(av[1], av[2], *env_bis);
-        else
-            *env_bis = ft_setenv(av[1], "", *env_bis);
+        if (av[1] != NULL)
+        {
+            if (av[2] != NULL)
+                *env_bis = ft_setenv(av[1], av[2], *env_bis);
+            else
+                *env_bis = ft_setenv(av[1], "", *env_bis);
+        }
     }
     return (1);
 }
@@ -86,51 +76,51 @@ int	ft_cmd_setenv(char **av, char ***env_bis)
 int	ft_cmd_cd(char **av, char ***env_bis)
 {
     char		*path;
-	char		*tmp;
-	int			flag;
+    char		*tmp;
+    int			flag;
 
-	flag = 0;
+    flag = 0;
     if (av[1] != NULL)
     {
         path = av[1];
-		if ((ft_strncmp(path, "-", 1)) == 0)
-		{
-			tmp = ft_egal(env_bis, 0);
-			if(chdir(tmp) < 0)
-				ft_print_error(av[1]);
-			free(tmp);
-		}
-		else 
-		{
-			if (chdir(path) < 0)
-			{
-				flag = 1;
-				ft_print_error(av[1]);
-			}
-		}
+        if ((ft_strncmp(path, "-", 1)) == 0)
+        {
+            tmp = ft_egal(env_bis, 0);
+            if(chdir(tmp) < 0)
+                ft_print_error(av[1]);
+            free(tmp);
+        }
+        else 
+        {
+            if (chdir(path) < 0)
+            {
+                flag = 1;
+                ft_print_error(av[1]);
+            }
+        }
         if ((ft_strncmp(av[1], "..", ft_strlen(av[1]))) == 0)
             ft_pwd_n_oldpwd(env_bis);
         else
             ft_add_pwd_n_oldpwd(env_bis, av[1], flag);
     }
     else
-	{
-		if ((path = ft_get_home(env_bis)) != NULL && chdir(path) < 0)
-			ft_print_error(av[1]);
+    {
+        if ((path = ft_get_home(env_bis)) != NULL && chdir(path) < 0)
+            ft_print_error(av[1]);
         ft_pwd_n_oldpwd_bis(env_bis, path);
-		free(path);
-	}
+        free(path);
+    }
     return (1);
 }
 
 int	ft_cmd_env(char **av, char ***env_bis)
 {
     if (av[1] != NULL)
-	{
-		ft_putstr_fd("env: ", 2);
-		ft_putstr_fd(av[1], 2);
+    {
+        ft_putstr_fd("env: ", 2);
+        ft_putstr_fd(av[1], 2);
         ft_putendl_fd(": No such file or directory", 2);
-	}
+    }
     else
         ft_print_env(*env_bis);
     return (1);

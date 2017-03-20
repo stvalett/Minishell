@@ -40,7 +40,11 @@ int		ft_print_one_dollar(char *av);
 int		ft_count_av(char **av);
 int		ft_is_acco(char *line, int *flag);
 int		ft_is_dollar_n_acco(char **av);
+int     ft_check_setenv(char **av, char ***env_bis);
+int     ft_parse_setenv(char *av);
+int     ft_parse_setenv2(char **av, char ***env_bis);
 void	ft_switch_pwd(char ***env_bis);
+char    *ft_env_without_bis(char **env_bis, int index);
 char	*ft_getpath(const char *line, const char *value);
 char    *ft_oldpwd(char ***env_bis);
 char	*ft_egal(char ***env_bis, int flag);
@@ -65,6 +69,7 @@ void	ft_print_dollar(char **av, char **env_bis);
 void	ft_print_dollar_n_acco(char **av, char **env_bis, int flag);
 void	ft_env_without(char **av, char **env_bis);
 void	ft_error_dollar(char **av, char **env_bis);
+void    ft_error_setenv(char *str, int flag);
 char 	*ft_error_acco(char *line, char **av, int flag);
 
 #endif

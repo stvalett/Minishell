@@ -108,3 +108,16 @@ char *ft_error_acco(char *line, char **av, int flag)
 	}
 	return (tmp);
 }
+
+void    ft_error_setenv(char *str, int flag)
+{
+    if (flag == 1)
+        ft_putendl_fd("setenv: Variable name must begin with a letter", 2);
+    else if (flag == 2)
+        ft_putendl_fd("setenv: Variable name must contain alphanumeric characters", 2);
+    else if (flag == 3)
+    {
+        ft_putstr_fd(str, 2);
+        ft_putendl_fd(": Undefined variable", 2);
+    }
+}

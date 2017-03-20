@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-static char	*ft_env_without_bis(char **env_bis, int index)
+char	*ft_env_without_bis(char **env_bis, int index)
 {
 	char	*tmp;
 	int	i;
