@@ -19,7 +19,7 @@ int     ft_check_setenv(char **av, char ***env_bis)
     {
         if (ft_parse_setenv(av[1]) == 1)
             return (1);
-        if (av[2][0] == '$')
+        else if (av[2] != NULL && av[2][0] == '$')
         {
             if ((ft_parse_setenv2(av, env_bis)) == 1)
                 return (1);
