@@ -21,7 +21,7 @@ static char	*ft_error_dollar_bis(char *av, char **env_bis, int *index)
 	if ((tmp = (char *)malloc(sizeof(char ) * ft_strlen(av) + 1)) == NULL)
 		return (NULL);
 	i = 0;
-	while (av[i] == '$')
+	while (av[i] == '$' && av[i])
 		i++;
 	k = 0;
 	if (av[i] == '"')
@@ -59,54 +59,26 @@ void	ft_error_dollar(char **av, char **env_bis)
 			}
 			if (index < 0)
 			{
-				ft_putstr_fd(tmp, 2);
-				ft_putchar_fd(':', 2);
-				ft_putendl_fd(" Undefined variable.", 2);
-				free(tmp);
+                ft_error_setenv(tmp, 3);
 				break;
 			}
 			free(tmp);
 		}
 }
 
-char *ft_error_acco(char *line, char **av, int flag)
+int    ft_error(int count, char **av)
 {
-	char	*tmp;
-	int 	count;
-	int 	i;
-	int 	j;
-
-	i = -1;
-	count = 0;
-	tmp = NULL;
-	while (line[++i])
-	{
-		if (line[i] == '"' && flag == 1)
-			count++;
-		else if (line[i] == '\'' && flag == 0)
-			count++;
-	}
-	if (count % 2 == 1 && ft_is_dollar_n_acco(av) == 0)
-		ft_putendl_fd("Unmatched .", 2);
-	else if (ft_is_dollar_n_acco(av) == 1)
-		ft_putendl_fd("Illegal variable name.", 2);
-	else
-	{
-		if ((tmp = (char *)malloc(sizeof(char) * ft_strlen(line) + 1)) == NULL)
-			return (NULL);
-		i = 0;
-		j = 0;
-		while ((line[i] == '"' || line[i] == '\'') && line[i])
-			i++;
-		while (line[i] != '"' && line[i] != '\'' && line[i])
-		{
-			tmp[j] = line[i];
-			i++;
-			j++;
-		}
-		tmp[j] = '\0';
-	}
-	return (tmp);
+    if (count % 2 == 1  && ft_is_dollar_n_acco(av) == 0)
+    {
+        ft_putendl_fd("Unmatched .", 2);
+        return (0);
+    }
+    else if (ft_is_dollar_n_acco(av) == 1)
+    {
+        ft_putendl_fd("Illegal variable name.", 2);
+        return (0);
+    }
+    return (1);
 }
 
 void    ft_error_setenv(char *str, int flag)
@@ -119,5 +91,6 @@ void    ft_error_setenv(char *str, int flag)
     {
         ft_putstr_fd(str, 2);
         ft_putendl_fd(": Undefined variable", 2);
+        free(str);
     }
 }

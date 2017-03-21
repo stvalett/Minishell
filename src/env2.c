@@ -59,23 +59,6 @@ static int	ft_getenv2(char **env_bis, char *path, int *i)
 	return (-1);
 }
 
-static char	*ft_unsetenv_bis(char *str)
-{
-    int 	i;
-    char	*tmp;
-
-    if ((tmp = (char *)malloc(sizeof(char) * ft_strlen(str) + 1)) == NULL)
-        return (NULL);
-    i = 0;
-    while (str[i])
-    {
-        tmp[i] = str[i];
-        i++;
-    }
-    tmp[i] = '\0';
-    return (tmp);
-}
-
 char	**ft_unsetenv(const char *line, const char *value, char **env_bis)
 {
     char	*path;
@@ -95,7 +78,7 @@ char	**ft_unsetenv(const char *line, const char *value, char **env_bis)
             ;
         else
         {
-            tmp[j] = ft_unsetenv_bis(env_bis[i]);
+            tmp[j] = ft_strdup(env_bis[i]);
             j++;
         }
     tmp[j] = NULL;

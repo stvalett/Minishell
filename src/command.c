@@ -14,7 +14,6 @@
 
 int	ft_cmd_echo(char **av, char **env_bis)
 {
-    int 	i;
     int	flag;
 
     flag = 0;
@@ -30,15 +29,7 @@ int	ft_cmd_echo(char **av, char **env_bis)
             else if (flag == 3)
                 ft_print_acco(av, flag);
             else
-            {
-                i = 0;
-                while (av[++i])
-                {
-                    ft_putstr(av[i]);
-                    ft_putchar(' ');
-                }
-                ft_putchar('\n');
-            }
+                ft_print_env(av, 1);
         }
     }
     return (1);
@@ -115,6 +106,8 @@ int	ft_cmd_cd(char **av, char ***env_bis)
 
 int	ft_cmd_env(char **av, char ***env_bis)
 {
+    //if (ft_strncmp(av[1], "-i", 2) == 0)
+      //  return (1);
     if (av[1] != NULL)
     {
         ft_putstr_fd("env: ", 2);
@@ -122,6 +115,6 @@ int	ft_cmd_env(char **av, char ***env_bis)
         ft_putendl_fd(": No such file or directory", 2);
     }
     else
-        ft_print_env(*env_bis);
+        ft_print_env(*env_bis, 0);
     return (1);
 }

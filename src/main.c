@@ -15,7 +15,6 @@
 static void ft_shlv_bis(char ***env_bis, int *add)
 {
 	int     i;
-	int     j;
 	int     index;
 	char    *tmp;
 	char    *tmp2;
@@ -30,14 +29,7 @@ static void ft_shlv_bis(char ***env_bis, int *add)
 	while (tmp[i] != '=' && i > 0)
 		i--;
 	i++;
-	j = 0;
-	while (tmp[i])
-	{
-		tmp2[j] = tmp[i];
-		i++;
-		j++;
-	}
-	tmp2[j] = '\0';
+    ft_at_strcpy(tmp2, tmp, i);
 	*add = ft_atoi(tmp2);
 	free(tmp);
 	free(tmp2);

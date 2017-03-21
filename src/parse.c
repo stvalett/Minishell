@@ -32,6 +32,29 @@ static void	ft_get_replace(char **av, char **env)
   }
 }
 
+char    *ft_parse_acco(char *line, char **av, int flag)
+{
+	char	*tmp;
+	int 	count;
+	int 	i;
+
+	i = -1;
+	count = 0;
+	tmp = NULL;
+	while (line[++i])
+	{
+		if (line[i] == '"' && flag == 1)
+			count++;
+		else if (line[i] == '\'' && flag == 0)
+			count++;
+	}
+    if (ft_error(count, av) == 0)
+        return (tmp);
+	else
+		tmp = ft_strcpy_acco(line);
+	return (tmp);
+}
+
 char	**ft_get_av(char *line, char **env_bis)
 {
   char	**av;

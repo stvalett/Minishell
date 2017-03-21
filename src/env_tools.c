@@ -16,22 +16,14 @@ char	*ft_env_without_bis(char **env_bis, int index)
 {
 	char	*tmp;
 	int	i;
-	int	j;
 
 	if ((tmp = (char*)malloc(sizeof(char) * ft_strlen(env_bis[index]) + 1)) == NULL)
 		return (NULL);
 	i = 0;
-	j = 0;
-	while (env_bis[index][i] != '=')
+	while (env_bis[index][i] != '=' && env_bis[index][i])
 		i++;
 	i++;
-	while (env_bis[index][i])
-	{
-		tmp[j] = env_bis[index][i];
-		j++;
-		i++;
-	}
-	tmp[j] = '\0';
+    ft_at_strcpy(tmp, env_bis[index], i);
 	return (tmp);
 }
 

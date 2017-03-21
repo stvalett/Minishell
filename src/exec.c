@@ -18,7 +18,6 @@ static int	ft_cmd_basic(char **av, char ***env_bis)
 		return (1);
 	if ((ft_strcmp(av[0], "exit")) == 0)
 		exit(0);
-	//return (ft_cmd_exit());
 	else if ((ft_strcmp(av[0], "cd")) == 0)
 		return (ft_cmd_cd(av, env_bis));
 	else if (ft_strcmp(av[0], "echo")  == 0 || ft_strcmp(av[0], "\"echo\"") == 0
@@ -104,7 +103,7 @@ static int	ft_cmd_exec_child(char **av, char **env, char *line)
 	{
 		if (ft_is_acco(line, &flag) == 1)
 		{
-			tmp = ft_error_acco(line, av, flag);
+			tmp = ft_parse_acco(line, av, flag);
 			if (tmp != NULL)
 			{
 				ft_putstr_fd(tmp, 2);

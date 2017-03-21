@@ -12,18 +12,6 @@
 
 #include "../include/minishell.h"
 
-void ft_print_env(char **env_bis)
-{
-    int i;
-
-    i = 0;
-    while (env_bis[i])
-    {
-        ft_putendl(env_bis[i]);
-        i++;
-    }
-}
-
 static void ft_print_dollar_bis(char **av, char **env_bis)
 {
     char			*tmp;
@@ -42,8 +30,8 @@ static void ft_print_dollar_bis(char **av, char **env_bis)
             tmp = ft_strcpy_cara(av[i]);
             if ((index = ft_get_env(tmp, env_bis)) < 0)
                 flag = 1;
-			if (tmp)
-				free(tmp);
+            if (tmp)
+                free(tmp);
         }
     }
     if (flag == 1)
@@ -96,12 +84,28 @@ void	ft_print_dollar_n_acco(char **av, char **env_bis, int flag)
     ft_free(tmp, 0);
 }
 
+static void ft_print_acco_bis(char **av)
+{
+    char    *tmp;
+    int     i;
+
+    i = 0;
+    while (av[++i])
+    {
+        tmp = ft_no_metachr(av[i]);
+        ft_putstr(tmp);
+        ft_putchar(' ');
+        free(tmp);
+    }
+    ft_putchar('\n');
+
+}
+
 int		ft_print_acco(char **av, int flag)
 {
     int		i;
     int		j;
     int		count;
-    char	*tmp;
 
     count = 0;
     i = 0;
@@ -112,27 +116,9 @@ int		ft_print_acco(char **av, int flag)
             if (av[i][j] == '"' || av[i][j] == '\'')
                 count++;
     }
-    if (count % 2 == 1  && ft_is_dollar_n_acco(av) == 0)
-    {
-        ft_putendl_fd("Unmatched .", 2);
+    if (ft_error(count, av) == 0)
         return (0);
-    }
-    else if (ft_is_dollar_n_acco(av) == 1)
-    {
-        ft_putendl_fd("Illegal variable name.", 2);
-        return (0);
-    }
     else if (flag == 3)
-    {
-        i = 0;
-        while (av[++i])
-        {
-            tmp = ft_no_metachr(av[i]);
-            ft_putstr(tmp);
-            ft_putchar(' ');
-            free(tmp);
-        }
-        ft_putchar('\n');
-    }
+        ft_print_acco_bis(av);
     return (1);
 }

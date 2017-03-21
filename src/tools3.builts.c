@@ -12,7 +12,7 @@ int     ft_check_setenv(char **av, char ***env_bis)
     }
     else if (count == 1)
     {
-        ft_print_env(*env_bis);
+        ft_print_env(*env_bis, 0);
         return (1);
     }
     else if (av[1] != NULL || av[2] != NULL)
@@ -31,27 +31,25 @@ int     ft_check_setenv(char **av, char ***env_bis)
 int     ft_parse_setenv(char *av)
 {
     int i;
+    int flag;
 
     i = -1;
+    flag = 0;
     while (av[++i])
     {
         if (ft_isdigit(av[i]) == 1 && i == 0
-                && ft_strncmp(av, "_", 1) != 0)
-        {
-            ft_error_setenv(NULL, 1);
-            return (1);
-        }
+                && ft_strncmp(av, "_", 1) != 0 && (flag = 1))
+            break;
         else if (ft_isalpha(av[i]) == 0 && i == 0
-                && ft_strncmp(av, "_", 1) != 0)
-        {
-            ft_error_setenv(NULL, 1);
-            return (1);
-        }
-        else if (ft_isalnum(av[i]) == 0 && i > 0)
-        {
-            ft_error_setenv(NULL, 2);
-            return (1);
-        }
+                && ft_strncmp(av, "_", 1) != 0 && (flag = 1))
+            break;
+        else if (ft_isalnum(av[i]) == 0 && i > 0 && (flag = 2))
+            break;
+    }
+    if (flag == 1 || flag == 2)
+    {
+        ft_error_setenv(NULL, flag);
+        return (1);
     }
     return (0);
 }
@@ -60,18 +58,15 @@ int     ft_parse_setenv2(char **av, char ***env_bis)
 {
     int     index;
     int     i;
-    int     j;
     char    *str;
 
     if ((str = (char *)malloc(sizeof(char) * ft_strlen(av[2]) + 1)) == NULL)
         return (1);
-    i = -1;
-    while (av[2][++i] != '$')
-        ;
-    j = -1;
-    while (av[2][i++])
-        str[++j] = av[2][i];
-    str[j] = '\0';
+    i = 0;
+    while (av[2][i] != '$' && av[2][i])
+        i++;
+    i++;
+    ft_at_strcpy(str, av[2], i);
     if ((index = ft_get_env(str, *env_bis)) >= 0)
     {
         free(str);
@@ -82,7 +77,6 @@ int     ft_parse_setenv2(char **av, char ***env_bis)
     else
     {
         ft_error_setenv(str, 3);
-        free(str);
         return (1);
     }
     return (0);
