@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:31 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/23 14:14:33 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/23 17:42:40 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static	void	ft_shlv_bis(char ***env_bis, int *add)
 	free(tmp2);
 }
 
-static	void	ft_shlv(char ***env_bis, char **av)
+static	void	ft_shlv(char ***env_bis)
 {
 	int			i;
 	int			add;
@@ -53,32 +53,22 @@ static	void	ft_shlv(char ***env_bis, char **av)
 		*env_bis = ft_setenv("SHLVL", ret, *env_bis);
 		free(ret);
 	}
-	while (av[i])
+	else
 	{
-		if ((ft_strncmp(av[i], "./minishell", 11)
-					|| ft_strncmp(av[i], "csh", 3)
-					|| ft_strncmp(av[i], "ksh", 3)
-					|| ft_strncmp(av[i], "tsh", 3)
-					|| ft_strncmp(av[i], "sh", 2)) == 0)
-		{
-			ret = ft_itoa(count + add);
-			*env_bis = ft_setenv("SHLVL", ret, *env_bis);
-			free(ret);
-			break ;
-		}
-		i++;
+		ret = ft_itoa(count + add);
+		*env_bis = ft_setenv("SHLVL", ret, *env_bis);
+		free(ret);
 	}
 	count++;
 }
 
-static	int		ft_get_prompt(char ***env_bis, char **av)
+static	int		ft_get_prompt(char ***env_bis)
 {
-	int		ret;
-	char	*line;
+	int			ret;
+	char		*line;
 
 	line = NULL;
 	ret = 0;
-	ft_shlv(env_bis, av);
 	ft_putstr("Minishell $> ");
 	get_next_line(0, &line);
 	if (line != NULL)
@@ -96,8 +86,9 @@ int				main(int ac, char **av, char **env)
 
 	ret = 0;
 	env_bis = ft_cpy_env(env, 0, NULL);
+	ft_shlv(&env_bis);
 	if (ac > 0 && av != NULL)
-		while ((ret = ft_get_prompt(&env_bis, av)) > 0)
+		while ((ret = ft_get_prompt(&env_bis)) > 0)
 			;
 	return (0);
 }
