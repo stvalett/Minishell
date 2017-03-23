@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 11:25:05 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/10 12:48:17 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/23 11:36:27 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,22 @@ void	ft_env_without(char **av, char **env_bis)
 	}
 }
 
+char	*ft_getpath_bis(char *s1, char *s2)
+{
+	char	*tmp;
+	char	*path;
+
+	path = ft_strdup(s1);
+	tmp = path;
+	free(path);
+	path = ft_strjoin(tmp, "=");
+	tmp = path;
+	free(path);
+	if (s2 != NULL)
+		path = ft_strjoin(tmp, s2);
+	return (path);
+}
+
 char	*ft_getpath(const char *line, const char *value)
 {
 	char	*path;
@@ -86,7 +102,8 @@ char	*ft_getpath(const char *line, const char *value)
 
 	flag = 0;
 	s1 = ft_no_metachr((char *)line);
-	if (value)
+	s2 = NULL;
+	if (value != NULL)
 	{
 		s2 = ft_no_metachr((char *)value);
 		len = ft_strlen(s1) + ft_strlen(s2);
@@ -94,11 +111,16 @@ char	*ft_getpath(const char *line, const char *value)
 	}
 	else
 		len = ft_strlen(s1);
-	if ((path = (char *)malloc(sizeof(char) * (len + 1))) == NULL)
-		return (NULL);
-	ft_strcpy(path, s1);
+	/*if ((path = (char *)malloc(sizeof(char) * (len + 1))) == NULL)
+		return (NULL);*/
+/*	ft_strcpy(path, s1);
 	ft_strcat(path, "=");
-	ft_strcat(path, s2);
+	ft_strcat(path, s2);*/
+	/*path = ft_strdup(s1);
+	path = ft_strjoin(path, "=");
+	if (s2 != NULL)
+		path = ft_strjoin(path, s2);*/
+	path = ft_getpath_bis(s1, s2);
 	ft_free_getpatch(s1, s2, flag);
 	return (path);
 }

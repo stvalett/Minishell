@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:08 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/10 12:45:25 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/23 10:37:01 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,12 @@ char	**ft_setenv(const char *line, const char *value, char **env_bis)
             return (NULL);
         j = -1;
         while (env_bis[++j])
+		{
             if (j == index)
 				tmp[j] = ft_strdup(path);
             else
 				tmp[j] = ft_strdup(env_bis[j]);
+		}
         tmp[j] = NULL;
         ft_free(env_bis, 0);
         free(path);

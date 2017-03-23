@@ -6,27 +6,11 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 10:45:17 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/09 11:52:23 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/23 12:02:26 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-static char    *ft_pwdbis(char *str)
-{
-    int     i;
-    char    *tmp;
-
-    tmp = NULL;
-    if ((tmp = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1))) == NULL)
-        return (NULL);
-    i = 0;
-    while (str[i] != '=' && str[i])
-        i++;
-    i++;
-    ft_at_strcpy(tmp, str, i);
-    return (tmp);
-}
 
 char    *ft_oldpwd_or_add(char ***env_bis, char *av, int flag)
 {
@@ -49,27 +33,6 @@ char    *ft_oldpwd_or_add(char ***env_bis, char *av, int flag)
         ft_strcat(tmp, av);
     }
     return (tmp);
-}
-
-char    *ft_pwd(char ***env_bis)
-{
-    int     j;
-    int     index;
-    char    *tmp;
-    char    *str;
-
-    str = NULL;
-    tmp = NULL;
-    index = ft_get_env("PWD", *env_bis);
-    if ((tmp = (char *)malloc(sizeof(char) * (ft_strlen(env_bis[0][index]) + 1))) == NULL)
-        return (NULL);
-    j = ft_strlen(env_bis[0][index]) - 1;
-    while (env_bis[0][index][j] != '/' && env_bis[0][index][j])
-        j--;
-    ft_strncpy(tmp, env_bis[0][index], j);
-    str = ft_pwdbis(tmp);
-    free(tmp);
-    return (str);
 }
 
 void	ft_check_dollar_n_acco(char **av, int *flag)

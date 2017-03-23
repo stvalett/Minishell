@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:23:52 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/10 12:54:25 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/23 11:44:34 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,10 @@ int	ft_cmd_cd(char **av, char ***env_bis)
 
 int	ft_cmd_env(char **av, char ***env_bis)
 {
-    //if (ft_strncmp(av[1], "-i", 2) == 0)
-      //  return (1);
     if (av[1] != NULL)
     {
+		if (ft_strncmp(av[1], "-i", 2) == 0)
+			return (1);
         ft_putstr_fd("env: ", 2);
         ft_putstr_fd(av[1], 2);
         ft_putendl_fd(": No such file or directory", 2);
