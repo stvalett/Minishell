@@ -6,13 +6,13 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:08 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/23 10:37:01 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/23 14:53:06 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static char	**ft_add_env(const char *line, const char *value, char **env_bis)
+static	char	**ft_add_env(char *line, char *value, char **env_bis)
 {
 	char	**tmp;
 	char	*path;
@@ -24,7 +24,7 @@ static char	**ft_add_env(const char *line, const char *value, char **env_bis)
 	return (tmp);
 }
 
-char	**ft_cpy_env(char **env_bis, int len, char *path)
+char			**ft_cpy_env(char **env_bis, int len, char *path)
 {
 	char		**tmp;
 	int			count;
@@ -48,32 +48,31 @@ char	**ft_cpy_env(char **env_bis, int len, char *path)
 	return (tmp);
 }
 
-char	**ft_setenv(const char *line, const char *value, char **env_bis)
+char			**ft_setenv(const char *line, const char *value, char **env_bis)
 {
-    char	*path;
-    char    **tmp;
-    int     j;
-    int	    index;
+	char	*path;
+	char	**tmp;
+	int		j;
+	int		index;
 
 	path = ft_getpath(line, value);
-    index = ft_get_env(path, env_bis);
-    if (index >= 0)
-    {
-        if ((tmp = (char **)malloc(sizeof(char *) * ft_count_env(env_bis) + 1)) == NULL)
-            return (NULL);
-        j = -1;
-        while (env_bis[++j])
-		{
-            if (j == index)
+	index = ft_get_env(path, env_bis);
+	if (index >= 0)
+	{
+		if ((tmp = (char **)malloc(sizeof(char *)
+						* ft_count_env(env_bis) + 1)) == NULL)
+			return (NULL);
+		j = -1;
+		while (env_bis[++j])
+			if (j == index)
 				tmp[j] = ft_strdup(path);
-            else
+			else
 				tmp[j] = ft_strdup(env_bis[j]);
-		}
-        tmp[j] = NULL;
-        ft_free(env_bis, 0);
-        free(path);
-        return (tmp);
-    }
-    free(path);
-    return (ft_add_env(line, value, env_bis));
+		tmp[j] = NULL;
+		ft_free(env_bis, 0);
+		free(path);
+		return (tmp);
+	}
+	free(path);
+	return (ft_add_env((char *)line, (char *)value, env_bis));
 }

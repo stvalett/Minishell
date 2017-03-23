@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 13:13:26 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/10 12:49:19 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/23 14:42:26 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*ft_strcpy_cara(char *av)
 {
-	int 	i;
-	int	j;
+	int		i;
+	int		j;
 	char	*tmp;
 
 	if ((tmp = (char *)malloc(sizeof(char) * ft_strlen(av) + 1)) == NULL)
@@ -34,28 +34,28 @@ char	*ft_strcpy_cara(char *av)
 	return (tmp);
 }
 
-char    *ft_strcpy_acco(char *line)
+char	*ft_strcpy_acco(char *line)
 {
-    char    *tmp;
-    int     i;
-    int     j;
+	char	*tmp;
+	int		i;
+	int		j;
 
-    tmp = NULL;
-    if ((tmp = (char *)malloc(sizeof(char) * ft_strlen(line) + 1)) == NULL)
-			return (NULL);
-		i = 0;
-		j = -1;
-		while ((line[i] == '"' || line[i] == '\'') && line[i])
-			i++;
-		while (line[i++] != '"' && line[i++] != '\'' && line[i++])
-			tmp[++j] = line[i];
-		tmp[j] = '\0';
-        return (tmp);
+	tmp = NULL;
+	if ((tmp = (char *)malloc(sizeof(char) * ft_strlen(line) + 1)) == NULL)
+		return (NULL);
+	i = 0;
+	j = -1;
+	while ((line[i] == '"' || line[i] == '\'') && line[i])
+		i++;
+	while (line[i++] != '"' && line[i++] != '\'' && line[i++])
+		tmp[++j] = line[i];
+	tmp[j] = '\0';
+	return (tmp);
 }
 
-int ft_is_acco(char *line, int *flag)
+int		ft_is_acco(char *line, int *flag)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line[i])
@@ -73,7 +73,7 @@ int ft_is_acco(char *line, int *flag)
 	return (0);
 }
 
-int	ft_is_dollar_n_acco(char **av)
+int		ft_is_dollar_n_acco(char **av)
 {
 	int i;
 	int j;
@@ -84,7 +84,7 @@ int	ft_is_dollar_n_acco(char **av)
 		j = -1;
 		while (av[i][++j])
 		{
-			if (av[i][j] == '$' && (av[i][j + 1] == '"' 
+			if (av[i][j] == '$' && (av[i][j + 1] == '"'
 						|| av[i][j + 1] == '\''))
 				return (1);
 		}

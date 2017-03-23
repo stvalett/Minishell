@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:46 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/10 12:35:54 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/23 13:59:26 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,14 @@ int     ft_error(int count, char **av);
 void	ft_switch_pwd(char ***env_bis);
 char    *ft_env_without_bis(char **env_bis, int index);
 char	*ft_getpath(const char *line, const char *value);
-char    *ft_oldpwd_or_add(char ***env_bis, char *av, int flag);
+char    *ft_oldpwd_or_add(char ***env_bis);
 char	*ft_egal(char ***env_bis, int flag);
 char    *ft_pwd(char ***env_bis);
 char	*ft_no_metachr(char *str);
 char	*ft_strcpy_cara(char *av);
 char	**ft_cpy_env(char **env, int len, char *path);
-//char	**ft_add_env(const char *line, const char *value, char **env);
 char	**ft_setenv(const char *line, const char *value, char **env);
-char	**ft_unsetenv(const char *line, const char *value, char **env_bis);
+char	**ft_unsetenv(char *line, char *value, char **env_bis);
 char	**ft_get_av(char *line, char **env);
 char	*ft_get_home(char ***env_bis);
 char    *ft_strcpy_acco(char *line);

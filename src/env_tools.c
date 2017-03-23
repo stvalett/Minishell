@@ -6,28 +6,29 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 11:25:05 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/23 11:36:27 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/23 14:55:35 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*ft_env_without_bis(char **env_bis, int index)
+char			*ft_env_without_bis(char **env_bis, int index)
 {
 	char	*tmp;
-	int	i;
+	int		i;
 
-	if ((tmp = (char*)malloc(sizeof(char) * ft_strlen(env_bis[index]) + 1)) == NULL)
+	if ((tmp = (char*)malloc(sizeof(char)
+					* ft_strlen(env_bis[index]) + 1)) == NULL)
 		return (NULL);
 	i = 0;
 	while (env_bis[index][i] != '=' && env_bis[index][i])
 		i++;
 	i++;
-    ft_at_strcpy(tmp, env_bis[index], i);
+	ft_at_strcpy(tmp, env_bis[index], i);
 	return (tmp);
 }
 
-static void	ft_env_without2(char **env_bis, int index)
+static	void	ft_env_without2(char **env_bis, int index)
 {
 	char	*tmp;
 
@@ -36,7 +37,7 @@ static void	ft_env_without2(char **env_bis, int index)
 	free(tmp);
 }
 
-static int	ft_free_getpatch(char *s1, char *s2, int flag)
+static	int		ft_free_getpatch(char *s1, char *s2, int flag)
 {
 	if (flag == 1)
 	{
@@ -48,7 +49,7 @@ static int	ft_free_getpatch(char *s1, char *s2, int flag)
 	return (0);
 }
 
-void	ft_env_without(char **av, char **env_bis)
+void			ft_env_without(char **av, char **env_bis)
 {
 	char	*tmp;
 	int		i;
@@ -76,7 +77,7 @@ void	ft_env_without(char **av, char **env_bis)
 	}
 }
 
-char	*ft_getpath_bis(char *s1, char *s2)
+char			*ft_getpath_bis(char *s1, char *s2)
 {
 	char	*tmp;
 	char	*path;
@@ -92,12 +93,11 @@ char	*ft_getpath_bis(char *s1, char *s2)
 	return (path);
 }
 
-char	*ft_getpath(const char *line, const char *value)
+char			*ft_getpath(const char *line, const char *value)
 {
 	char	*path;
 	char	*s1;
 	char	*s2;
-	int		len;
 	int		flag;
 
 	flag = 0;
@@ -106,20 +106,8 @@ char	*ft_getpath(const char *line, const char *value)
 	if (value != NULL)
 	{
 		s2 = ft_no_metachr((char *)value);
-		len = ft_strlen(s1) + ft_strlen(s2);
 		flag = 1;
 	}
-	else
-		len = ft_strlen(s1);
-	/*if ((path = (char *)malloc(sizeof(char) * (len + 1))) == NULL)
-		return (NULL);*/
-/*	ft_strcpy(path, s1);
-	ft_strcat(path, "=");
-	ft_strcat(path, s2);*/
-	/*path = ft_strdup(s1);
-	path = ft_strjoin(path, "=");
-	if (s2 != NULL)
-		path = ft_strjoin(path, s2);*/
 	path = ft_getpath_bis(s1, s2);
 	ft_free_getpatch(s1, s2, flag);
 	return (path);

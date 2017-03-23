@@ -6,13 +6,13 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:23:45 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/09 17:57:57 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/23 14:10:52 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static int	ft_cmd_basic(char **av, char ***env_bis)
+static	int		ft_cmd_basic(char **av, char ***env_bis)
 {
 	if (*av == NULL)
 		return (1);
@@ -20,7 +20,8 @@ static int	ft_cmd_basic(char **av, char ***env_bis)
 		exit(0);
 	else if ((ft_strcmp(av[0], "cd")) == 0)
 		return (ft_cmd_cd(av, env_bis));
-	else if (ft_strcmp(av[0], "echo")  == 0 || ft_strcmp(av[0], "\"echo\"") == 0
+	else if (ft_strcmp(av[0], "echo") == 0
+			|| ft_strcmp(av[0], "\"echo\"") == 0
 			|| ft_strcmp(av[0], "\'echo\'") == 0)
 		return (ft_cmd_echo(av, *env_bis));
 	else if (ft_strcmp(av[0], "env") == 0 || ft_strcmp(av[0], "ENV") == 0)
@@ -32,10 +33,10 @@ static int	ft_cmd_basic(char **av, char ***env_bis)
 	return (0);
 }
 
-static char	*ft_get_path_try(char *av, char *dir)
+static	char	*ft_get_path_try(char *av, char *dir)
 {
 	char	*path;
-	int	len_max;
+	int		len_max;
 
 	len_max = ((ft_strlen(av) + 1) + (ft_strlen(dir) + 1));
 	if ((path = (char *)malloc(sizeof(*path) * len_max)) == NULL)
@@ -50,9 +51,9 @@ static char	*ft_get_path_try(char *av, char *dir)
 	return (path);
 }
 
-char	*ft_get_home(char ***env_bis)
+char			*ft_get_home(char ***env_bis)
 {
-	int 	i;
+	int		i;
 	int		flag;
 	char	*path;
 
@@ -67,12 +68,12 @@ char	*ft_get_home(char ***env_bis)
 	return (NULL);
 }
 
-static char	*ft_get_path(char *av, char **env)
+static	char	*ft_get_path(char *av, char **env)
 {
 	char	*path;
 	char	*tmp;
 	char	**str;
-	int	i;
+	int		i;
 
 	path = NULL;
 	if ((i = ft_get_env("PATH", env)) >= 0)
@@ -93,7 +94,7 @@ static char	*ft_get_path(char *av, char **env)
 	return (av);
 }
 
-static int	ft_cmd_exec_child(char **av, char **env, char *line)
+static	int		ft_cmd_exec_child(char **av, char **env, char *line)
 {
 	char	*tmp;
 	int		flag;
@@ -121,7 +122,7 @@ static int	ft_cmd_exec_child(char **av, char **env, char *line)
 	return (1);
 }
 
-int	ft_cmd_exec(char *line, char ***env_bis)
+int				ft_cmd_exec(char *line, char ***env_bis)
 {
 	char	**av;
 	pid_t	pid;
