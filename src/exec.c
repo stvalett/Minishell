@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:23:45 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/23 14:10:52 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/24 16:16:56 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,23 +49,6 @@ static	char	*ft_get_path_try(char *av, char *dir)
 	free(path);
 	path = NULL;
 	return (path);
-}
-
-char			*ft_get_home(char ***env_bis)
-{
-	int		i;
-	int		flag;
-	char	*path;
-
-	i = 0;
-	flag = 0;
-	if ((i = ft_get_env("HOME", *env_bis)) >= 0)
-	{
-		flag = 1;
-		path = ft_egal(env_bis, flag);
-		return (path);
-	}
-	return (NULL);
 }
 
 static	char	*ft_get_path(char *av, char **env)

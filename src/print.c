@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:44:50 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/23 14:19:50 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/24 11:16:28 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int				ft_print_acco(char **av, int flag)
 			if (av[i][j] == '"' || av[i][j] == '\'')
 				count++;
 	}
-	if (ft_error(count, av) == 0)
+	if (ft_error_bracket(count, av) == 0)
 		return (0);
 	else if (flag == 3)
 		ft_print_acco_bis(av);

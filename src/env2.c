@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 11:17:44 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/23 14:00:19 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/24 11:09:33 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ static	char	*ft_get_env_bis(char *av)
 	i = 0;
 	if (av[i] == '=')
 	{
-		while (av[i] == '=')
+		while (av[i] == '=' && av[i])
 			i++;
 		i++;
 	}
 	j = 0;
-	while (av[i] != '=')
+	while (av[i] != '=' && av[i])
 	{
 		tmp[j] = av[i];
 		j++;

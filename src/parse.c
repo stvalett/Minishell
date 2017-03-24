@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:37 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/23 14:16:04 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/24 11:17:46 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char			*ft_parse_acco(char *line, char **av, int flag)
 		else if (line[i] == '\'' && flag == 0)
 			count++;
 	}
-	if (ft_error(count, av) == 0)
+	if (ft_error_bracket(count, av) == 0)
 		return (tmp);
 	else
 		tmp = ft_strcpy_acco(line);

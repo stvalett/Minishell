@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   built.c                                            :+:      :+:    :+:   */
+/*   tools_builts.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/27 10:45:17 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/23 14:46:12 by stvalett         ###   ########.fr       */
+/*   Created: 2017/03/24 10:21:36 by stvalett          #+#    #+#             */
+/*   Updated: 2017/03/24 11:05:06 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	ft_switch_pwd(char ***env_bis)
-{
-	char	*str;
-	char	*tmp;
-
-	str = ft_oldpwd_or_add(env_bis);
-	tmp = ft_egal(env_bis, 0);
-	*env_bis = ft_setenv("OLDPWD", str, *env_bis);
-	free(str);
-	*env_bis = ft_setenv("PWD", tmp, *env_bis);
-	free(tmp);
-}
-
-char	*ft_egal(char ***env_bis, int flag)
+char	*ft_oldpwd_or_home(char ***env_bis, int flag)
 {
 	char	*str;
 	int		index;
@@ -44,6 +31,36 @@ char	*ft_egal(char ***env_bis, int flag)
 	i++;
 	ft_at_strcpy(str, env_bis[0][index], i);
 	return (str);
+}
+
+void	ft_switch_pwd(char ***env_bis)
+{
+	char	*str;
+	char	*tmp;
+
+	str = ft_oldpwd_or_add(env_bis);
+	tmp = ft_oldpwd_or_home(env_bis, 0);
+	*env_bis = ft_setenv("OLDPWD", str, *env_bis);
+	free(str);
+	*env_bis = ft_setenv("PWD", tmp, *env_bis);
+	free(tmp);
+}
+
+char			*ft_get_home(char ***env_bis)
+{
+	int		i;
+	int		flag;
+	char	*path;
+
+	i = 0;
+	flag = 0;
+	if ((i = ft_get_env("HOME", *env_bis)) >= 0)
+	{
+		flag = 1;
+		path = ft_oldpwd_or_home(env_bis, flag);
+		return (path);
+	}
+	return (NULL);
 }
 
 void	ft_check_dollar_n_acco(char **av, int *flag)

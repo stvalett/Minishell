@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:23:52 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/23 13:55:30 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/24 17:01:29 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	ft_cmd_cd(char **av, char ***env_bis)
 		path = av[1];
 		if ((ft_strncmp(path, "-", 1)) == 0)
 		{
-			tmp = ft_egal(env_bis, 0);
+			tmp = ft_oldpwd_or_home(env_bis, 0);
 			if (chdir(tmp) < 0)
 				ft_print_error(av[1]);
 			free(tmp);

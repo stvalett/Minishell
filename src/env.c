@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:08 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/23 14:53:06 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/24 12:32:00 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char			**ft_cpy_env(char **env_bis, int len, char *path)
 	char		**tmp;
 	int			count;
 	int			i;
-	static int	len_bis = 0;
+	static int	len_bis;
 
 	len_bis += len;
 	count = ft_count_env(env_bis);

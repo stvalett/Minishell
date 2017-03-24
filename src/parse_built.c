@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools2.builts.c                                    :+:      :+:    :+:   */
+/*   parse_built.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/23 14:42:48 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/23 14:44:30 by stvalett         ###   ########.fr       */
+/*   Created: 2017/03/24 11:05:29 by stvalett          #+#    #+#             */
+/*   Updated: 2017/03/24 11:13:50 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int		ft_check_setenv(char **av, char ***env_bis)
+int			ft_check_setenv(char **av, char ***env_bis)
 {
 	int	count;
 
@@ -40,7 +40,37 @@ int		ft_check_setenv(char **av, char ***env_bis)
 	return (0);
 }
 
-int		ft_parse_setenv(char *av)
+int	ft_parse_setenv2(char **av, char ***env_bis)
+{
+	int		index;
+	int		i;
+	char	*str;
+
+	if ((str = (char *)malloc(sizeof(char)
+					* ft_strlen(av[2]) + 1)) == NULL)
+		return (1);
+	i = 0;
+	while (av[2][i] != '$' && av[2][i])
+		i++;
+	i++;
+	ft_at_strcpy(str, av[2], i);
+	if ((index = ft_get_env(str, *env_bis)) >= 0)
+	{
+		free(str);
+		str = ft_env_without_bis(*env_bis, index);
+		*env_bis = ft_setenv(av[1], str, *env_bis);
+		free(str);
+		return (1);
+	}
+	else
+	{
+		ft_error_setenv(str, 3);
+		return (1);
+	}
+	return (0);
+}
+
+int			ft_parse_setenv(char *av)
 {
 	int	i;
 	int	flag;
@@ -61,35 +91,6 @@ int		ft_parse_setenv(char *av)
 	if (flag == 1 || flag == 2)
 	{
 		ft_error_setenv(NULL, flag);
-		return (1);
-	}
-	return (0);
-}
-
-int		ft_parse_setenv2(char **av, char ***env_bis)
-{
-	int		index;
-	int		i;
-	char	*str;
-
-	if ((str = (char *)malloc(sizeof(char)
-					* ft_strlen(av[2]) + 1)) == NULL)
-		return (1);
-	i = 0;
-	while (av[2][i] != '$' && av[2][i])
-		i++;
-	i++;
-	ft_at_strcpy(str, av[2], i);
-	if ((index = ft_get_env(str, *env_bis)) >= 0)
-	{
-		free(str);
-		str = ft_env_without_bis(*env_bis, index);
-		*env_bis = ft_setenv(av[1], str, *env_bis);
-		return (1);
-	}
-	else
-	{
-		ft_error_setenv(str, 3);
 		return (1);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:59:27 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/23 14:06:58 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/24 11:33:29 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,14 @@ void			ft_error_dollar(char **av, char **env_bis)
 		}
 }
 
-int				ft_error(int count, char **av)
+int				ft_error_bracket(int count, char **av)
 {
 	if (count % 2 == 1 && ft_is_dollar_n_acco(av) == 0)
 	{
-		ft_putendl_fd("Unmatched .", 2);
+		ft_putstr_fd("Unmatched ", 2);
+		ft_putchar_fd(av[1][0], 2);
+		ft_putchar_fd('.', 2);
+		ft_putchar_fd('\n', 2);
 		return (0);
 	}
 	else if (ft_is_dollar_n_acco(av) == 1)
