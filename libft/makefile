@@ -6,7 +6,7 @@
 #    By: stvalett <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/07 22:26:34 by stvalett          #+#    #+#              #
-#    Updated: 2016/11/14 21:47:10 by stvalett         ###   ########.fr        #
+#    Updated: 2017/03/24 17:35:19 by stvalett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRCS = ft_memset.c\
 	   ft_atoi.c\
 	   ft_itoa.c\
 	   ft_strlen.c\
+	   ft_count_av.c\
 	   ft_putstr.c\
 	   ft_putstr_fd.c\
 	   ft_putendl.c\
@@ -105,6 +106,7 @@ OBJ = ft_memset.o\
 	  ft_atoi.o\
 	  ft_itoa.o\
 	  ft_strlen.o\
+	  ft_count_av.o\
 	  ft_putstr.o\
 	  ft_putstr_fd.o\
 	  ft_putendl.o\

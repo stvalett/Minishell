@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 12:14:09 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/23 15:10:54 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/24 17:34:30 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int					ft_tolower(int c);
 int					ft_atoi(const char *str);
 int					ft_strequ(char const *s1, char const *s2);
 int					ft_strnequ(char const *s1, char const *s2, size_t n);
+int					ft_count_av(char **av);
 size_t				ft_strlen(const char *s);
 size_t				ft_strlcat(char *dst, const char *src, size_t size);
 void				ft_putstr(char *str);

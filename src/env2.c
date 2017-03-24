@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 11:17:44 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/24 11:09:33 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/24 17:37:51 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char			**ft_unsetenv(char *line, char *value, char **env_bis)
 	int		j;
 
 	path = ft_getpath(line, value);
-	count = ft_count_env(env_bis);
+	count = ft_count_av(env_bis);
 	if ((tmp = (char **)malloc(sizeof(char *) * count + 1)) == NULL)
 		return (NULL);
 	i = -1;

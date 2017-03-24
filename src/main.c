@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:31 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/24 15:59:18 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/24 17:37:10 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int				main(int ac, char **av, char **env)
 	ret = 0;
 	env_bis = ft_cpy_env(env, 0, NULL);
 	ft_shlv(&env_bis);
-	if (ft_count_env(env_bis) == 1)
+	if (ft_count_av(env_bis) == 1)
 		ft_basic_env(&env_bis);
 	if (ac > 0 && av != NULL)
 		while ((ret = ft_get_prompt(&env_bis)) > 0)

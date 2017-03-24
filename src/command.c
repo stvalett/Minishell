@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:23:52 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/24 17:01:29 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/24 18:14:26 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,39 +67,23 @@ int	ft_cmd_setenv(char **av, char ***env_bis)
 int	ft_cmd_cd(char **av, char ***env_bis)
 {
 	char		*path;
-	char		*tmp;
-	int			flag;
 
-	flag = 0;
 	if (av[1] != NULL)
-	{
-		path = av[1];
-		if ((ft_strncmp(path, "-", 1)) == 0)
-		{
-			tmp = ft_oldpwd_or_home(env_bis, 0);
-			if (chdir(tmp) < 0)
-				ft_print_error(av[1]);
-			free(tmp);
-		}
-		else
-		{
-			if (chdir(path) < 0)
-			{
-				flag = 1;
-				ft_print_error(av[1]);
-			}
-		}
-		if ((ft_strncmp(av[1], "..", ft_strlen(av[1]))) == 0)
-			ft_pwd_n_oldpwd(env_bis);
-		else
-			ft_add_pwd_n_oldpwd(env_bis, av[1], flag);
-	}
+		ft_parse_cd(env_bis, av[1]);
 	else
 	{
 		if ((path = ft_get_home(env_bis)) != NULL && chdir(path) < 0)
 			ft_print_error(av[1]);
-		ft_pwd_n_oldpwd_bis(env_bis, path);
-		free(path);
+		if (path != NULL)
+		{
+			ft_pwd_n_oldpwd_bis(env_bis, path);
+			free(path);
+		}
+		else
+		{
+			chdir("/Users/stvalett");
+			ft_pwd_n_oldpwd_bis(env_bis, "/Users/stvalett");
+		}
 	}
 	return (1);
 }

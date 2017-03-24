@@ -6,11 +6,40 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 11:05:29 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/24 11:13:50 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/24 18:14:26 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int			ft_parse_cd(char ***env_bis, char *av)
+{
+	char	*tmp;
+	int		flag;
+
+	flag = 0;
+	if ((ft_strncmp(av, "-", 1)) == 0)
+		{
+			tmp = ft_oldpwd_or_home(env_bis, 0);
+			if (chdir(tmp) < 0)
+				ft_print_error(av);
+			free(tmp);
+		}
+		else
+		{
+			if (chdir(av) < 0)
+			{
+				flag = 1;
+				ft_print_error(av);
+			}
+		}
+		if ((ft_strncmp(av, "..", ft_strlen(av))) == 0)
+			ft_pwd_n_oldpwd(env_bis);
+		else
+			ft_add_pwd_n_oldpwd(env_bis, av, flag);
+		return (1);
+
+}
 
 int			ft_check_setenv(char **av, char ***env_bis)
 {

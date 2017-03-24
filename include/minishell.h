@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:46 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/24 11:14:44 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/24 17:44:15 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,11 @@ int		ft_cmd_unsetenv(char **av, char ***env);
 int		ft_cmd_echo(char **av, char **env_bis);
 int		ft_get_env(char *line, char **env_bis);
 int		ft_free(char **str, int flag);
-int		ft_count_env(char **env);
 int		ft_no_digit(char *av);
 int		ft_print_one_dollar(char *av);
-int		ft_count_av(char **av);
 int		ft_is_acco(char *line, int *flag);
 int		ft_is_dollar_n_acco(char **av);
+int		ft_parse_cd(char ***env_bis, char *av);
 int     ft_check_setenv(char **av, char ***env_bis);
 int     ft_parse_setenv(char *av);
 int     ft_parse_setenv2(char **av, char ***env_bis);

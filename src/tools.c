@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/24 10:34:04 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/23 14:42:42 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/24 18:14:25 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,6 @@ int	ft_no_digit(char *av)
 	return (flag);
 }
 
-int	ft_count_env(char **env)
-{
-	int i;
-
-	i = 0;
-	while (env[i])
-		i++;
-	return (i);
-}
-
 int	ft_free(char **str, int flag)
 {
 	int i;
@@ -67,14 +57,4 @@ int	ft_free(char **str, int flag)
 		return (1);
 	else
 		return (0);
-}
-
-int	ft_count_av(char **av)
-{
-	int i;
-
-	i = 0;
-	while (av[i])
-		i++;
-	return (i);
 }
