@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:46 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/24 17:44:15 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/29 14:52:46 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ char	*ft_no_metachr(char *str);
 void	ft_error_dollar(char **av, char **env_bis);
 void    ft_error_setenv(char *str, int flag);
 void    ft_error_env(char *av, int flag);
+int		ft_error_env_2(char **tab, int index, int ret);
 int     ft_error_bracket(int count, char **av);
 
 

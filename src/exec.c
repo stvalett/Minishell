@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:23:45 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/24 17:16:17 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/29 11:31:35 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static	int		ft_cmd_basic(char **av, char ***env_bis, char *line)
 
 static  void    ft_cmd_exec_bis(char **av, char **env_bis, char *line)
 {
-
     if ((ft_cmd_execve(av, env_bis, line, 0)) == 0)
     {
         ft_free(av, 0);

@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:23:52 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/24 18:14:26 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/29 16:19:23 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,27 +94,11 @@ int	ft_cmd_cd(char **av, char ***env_bis)
 
 int	ft_cmd_env(char **av, char **env_bis, char *line)
 {
-    char    *str;
-    int     index;
-
     if (av[1] != NULL)
-    {
+	{
         if (ft_check_env(av, env_bis, line) == 1)
             return (1);
-        if (av[1] && ft_is_here(av[1], '$', 1) == 1)
-        {
-            str = ft_env_without_bis(av, 1, '$');
-            if ((index = ft_getenv(str, env_bis)) >= 0)
-            {
-                free(str);
-                str = ft_env_without_bis(env_bis, index, '=');
-            }
-            ft_error_env(str, 0);
-            free(str);
-        }
-        else
-            ft_error_env(av[1], 0);
-    }
+	}
     else
         ft_print_env(env_bis, 0);
     return (1);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/29 13:19:00 by stvalett          #+#    #+#             */
+/*   Updated: 2017/03/29 16:00:42 by stvalett         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 static  char    *ft_good_index(char **av, char **env_bis, int *flag)
@@ -36,7 +48,7 @@ static  char    **ft_parse_av2(char *line, char **env_bis, int *ret)
     tab = NULL;
     flag = 0;
     *ret = 1;
-    tab = ft_strsplit(line, ' ');
+    tab = ft_strsplit2(line);
     tmp = ft_good_index(tab, env_bis, &flag);
     if (tmp == NULL && flag == 2)
     {
@@ -50,14 +62,12 @@ static  char    **ft_parse_av2(char *line, char **env_bis, int *ret)
     }
     i = -1;
     while (tab[++i])
-        if (ft_is_here(tab[i], '$', 1) == 1 && (i == 0
-                    || i == 1) && tmp)
+        if (ft_is_here(tab[i], '$', 1) == 1 && (i == 0 || i == 1) && tmp)
         {
             free(tab[i]);
             tab[i] = ft_strdup(tmp);
         }
     free(tmp);
-    free(line);
     return (tab);
 }
 
@@ -71,11 +81,11 @@ static  char    **ft_parse_av1(char **env_bis, char *tmp)
     flag = 0;
     tab = NULL;
     i = 0;
-    tab = ft_strsplit(tmp, ' ');
+    tab = ft_strsplit2(tmp);
     while (tab[i])
     {
         tmp2 = ft_good_index(tab, env_bis, &flag); 
-        if (tmp2 == NULL && flag == 2)
+        if (tmp2 == NULL && flag == 2 && ft_is_here(tab[i], '$', 1) == 1)
         {
             ft_error_setenv(tab[i], 3);
             return (NULL);
@@ -87,7 +97,7 @@ static  char    **ft_parse_av1(char **env_bis, char *tmp)
         }
         i++;
     }
-    ft_free_str(tmp, tmp2, 1);
+	free(tmp2);
     return (tab);
 }
 
@@ -102,15 +112,11 @@ char    **ft_parse_av(char *line, char **av, char **env_bis, int *ret)
     if (ft_is_acco(line, &flag) == 1)
     {
         if ((str = ft_parse_acco(line, av, flag)) != NULL)
-        {
             return (tab = ft_parse_av1(env_bis, str));
-        }
     }
     else
-    {
         return (tab = ft_parse_av2(line, env_bis, ret));
-    }
-    return (NULL);
+	return (NULL);
 }
 
 void	ft_print_env(char **env_bis, int flag)

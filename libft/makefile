@@ -6,7 +6,7 @@
 #    By: stvalett <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/07 22:26:34 by stvalett          #+#    #+#              #
-#    Updated: 2017/03/24 17:35:19 by stvalett         ###   ########.fr        #
+#    Updated: 2017/03/29 15:39:04 by stvalett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ SRCS = ft_memset.c\
 	   ft_strmapi.c\
 	   ft_strnew.c\
 	   ft_strsplit.c\
+	   ft_strsplit2.c\
 	   ft_strsub.c\
 	   ft_strtrim.c\
 	   ft_lstnew.c\
@@ -138,6 +139,7 @@ OBJ = ft_memset.o\
 	  ft_strmapi.o\
 	  ft_strnew.o\
 	  ft_strsplit.o\
+	  ft_strsplit2.o\
 	  ft_strsub.o\
 	  ft_strtrim.o\
 	  ft_lstnew.o\

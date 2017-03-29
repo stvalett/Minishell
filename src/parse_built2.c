@@ -35,6 +35,7 @@ static  int ft_parse_env1(char **av, char **cpy_env)
     char    *s1;
     char    *s2;
 
+	s1 = NULL;
     if ((tmp = (char *)malloc(sizeof(char) * (ft_strlen(av[1]) + 1))) == NULL)
         return (0);
     ft_at_strcpy(tmp, av[1], 1);
@@ -48,6 +49,29 @@ static  int ft_parse_env1(char **av, char **cpy_env)
     ft_print_env(cpy_env, 0);
     ft_free_str(s1, s2, 1);
     return (ft_free(cpy_env, 1));
+}
+
+static void  ft_check_env_bis(char **av, char **env_bis, char *line)
+{
+    if (ft_strncmp(av[1], "-i", 2) == 0)
+    {
+        if (av[1] != NULL && (ft_strncmp(av[2], "echo", 4) == 0
+                    || ft_strcmp(av[2], "\"echo\"") == 0
+                    || ft_strcmp(av[2], "\'echo\'") == 0))
+        {
+            ft_cmd_echo(av + 2, env_bis);
+            exit(0);
+        }
+        if ((ft_cmd_execve(av, env_bis, line, 2)) == 0)
+            exit(1);
+        exit(0);
+    }
+    else
+    {
+        if ((ft_cmd_execve(av, env_bis, line, 1)) == 0)
+            exit(1);
+        exit(0);
+    }
 }
 
 static int         ft_parse_env(char **av, char **env_bis)
@@ -66,29 +90,6 @@ static int         ft_parse_env(char **av, char **env_bis)
                 return (ft_parse_env2(av, cpy_env));
     }
     return (ft_free(cpy_env, 0));
-}
-
-static void  ft_check_env_bis(char **av, char **env_bis, char *line)
-{
-    if (ft_strncmp(av[1], "-i", 2) == 0)
-    {
-        if (av[1] != NULL && (ft_strncmp(av[2], "echo", 4) == 0
-                    || ft_strcmp(av[2], "\"echo\"") == 0
-                    || ft_strcmp(av[2], "\'echo\'") == 0))
-        {
-            ft_cmd_echo(av + 2, env_bis);
-            exit(0);
-        }
-        if ((ft_cmd_execve(av + 1, env_bis, line, 1)) == 0)
-            exit(1);
-        exit(0);
-    }
-    else
-    {
-        if ((ft_cmd_execve(av, env_bis, line, 1)) == 0)
-            exit(1);
-        exit(0);
-    }
 }
 
 int         ft_check_env(char **av, char **env_bis, char *line)
