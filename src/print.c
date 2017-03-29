@@ -28,7 +28,7 @@ static	void	ft_print_dollar_bis(char **av, char **env_bis)
 				&& ft_no_digit(av[i]) == 0 && ft_strlen(av[i]) > 1)
 		{
 			tmp = ft_strcpy_cara(av[i]);
-			if ((index = ft_get_env(tmp, env_bis)) < 0)
+			if ((index = ft_getenv(tmp, env_bis)) < 0)
 				flag = 1;
 			if (tmp)
 				free(tmp);
@@ -53,7 +53,9 @@ void			ft_print_dollar(char **av, char **env_bis)
 		while (av[i][j])
 		{
 			if (av[i][j] == '$' && ft_isdigit(av[i][j + 1]) == 1)
+            {
 				;
+            }
 			if ((av[i][j] == '$' && ft_isalpha(av[i][j + 1]) == 1)
 					|| av[i][j] == '$')
 			{

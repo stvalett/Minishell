@@ -14,91 +14,108 @@
 
 int	ft_cmd_echo(char **av, char **env_bis)
 {
-	int	flag;
+    int	flag;
 
-	flag = 0;
-	if (av[0] != NULL)
-	{
-		if (av[1] != NULL)
-		{
-			ft_check_dollar_n_acco(av, &flag);
-			if (flag == 1)
-				ft_print_dollar(av, env_bis);
-			else if (flag == 2)
-				ft_print_dollar_n_acco(av, env_bis, flag);
-			else if (flag == 3)
-				ft_print_acco(av, flag);
-			else
-				ft_print_env(av, 1);
-		}
-	}
-	return (1);
+    flag = 0;
+    if (av[0] != NULL)
+    {
+        if (av[1] != NULL)
+        {
+            ft_check_dollar_n_acco(av, &flag);
+            if (flag == 1)
+                ft_print_dollar(av, env_bis);
+            else if (flag == 2)
+                ft_print_dollar_n_acco(av, env_bis, flag);
+            else if (flag == 3)
+                ft_print_acco(av, flag);
+            else
+                ft_print_env(av, 1);
+        }
+    }
+    return (1);
 }
 
 int	ft_cmd_unsetenv(char **av, char ***env)
 {
-	if (av[1] != NULL)
-	{
-		if (av[2] != NULL)
-			*env = ft_unsetenv(av[1], av[2], *env);
-		else
-			*env = ft_unsetenv(av[1], "", *env);
-	}
-	else
-		ft_putendl_fd("setenv: Too many arguments", 2);
-	return (1);
+    if (av[1] != NULL)
+    {
+        if (av[2] != NULL)
+            *env = ft_unsetenv(av[1], av[2], *env);
+        else
+            *env = ft_unsetenv(av[1], "", *env);
+    }
+    else
+        ft_putendl_fd("setenv: Too many arguments", 2);
+    return (1);
 }
 
 int	ft_cmd_setenv(char **av, char ***env_bis)
 {
-	if (ft_check_setenv(av, env_bis) == 0)
-	{
-		if (av[1] != NULL)
-		{
-			if (av[2] != NULL)
-				*env_bis = ft_setenv(av[1], av[2], *env_bis);
-			else
-				*env_bis = ft_setenv(av[1], "", *env_bis);
-		}
-	}
-	return (1);
+    if (ft_check_setenv(av, env_bis) == 0)
+    {
+        if (av[1] != NULL)
+        {
+            if (av[2] != NULL)
+                *env_bis = ft_setenv(av[1], av[2], *env_bis);
+            else
+                *env_bis = ft_setenv(av[1], "", *env_bis);
+        }
+    }
+    return (1);
 }
 
 int	ft_cmd_cd(char **av, char ***env_bis)
 {
-	char		*path;
+    char		    *path;
+    uid_t           uid;
+    struct passwd   *user;
 
-	if (av[1] != NULL)
-		ft_parse_cd(env_bis, av[1]);
-	else
-	{
-		if ((path = ft_get_home(env_bis)) != NULL && chdir(path) < 0)
-			ft_print_error(av[1]);
-		if (path != NULL)
-		{
-			ft_pwd_n_oldpwd_bis(env_bis, path);
-			free(path);
-		}
-		else
-		{
-			chdir("/Users/stvalett");
-			ft_pwd_n_oldpwd_bis(env_bis, "/Users/stvalett");
-		}
-	}
-	return (1);
+    uid = getuid();
+    user = getpwuid(uid);
+    if (av[1] != NULL)
+        ft_parse_cd(env_bis, av[1]);
+    else
+    {
+        if ((path = ft_get_home(env_bis)) != NULL && chdir(path) < 0)
+            ft_error_env(av[1], 1);
+        if (path != NULL)
+        {
+            ft_pwd_n_oldpwd(env_bis, path, 1);
+            free(path);
+        }
+        else
+        {
+            chdir(user->pw_dir);
+            ft_pwd_n_oldpwd(env_bis, user->pw_dir, 1);
+        }
+    }
+    return (1);
 }
 
-int	ft_cmd_env(char **av, char ***env_bis)
+int	ft_cmd_env(char **av, char **env_bis, char *line)
 {
-	if (av[1] != NULL)
-	{
-		if (ft_strncmp(av[1], "-i", 2) == 0)
-			return (1);
-		ft_putstr_fd("env: ", 2);
-		ft_putstr_fd(av[1], 2);
-		ft_putendl_fd(": No such file or directory", 2);
-	}
-	else
-		ft_print_env(*env_bis, 0);
-	return (1);
+    char    *str;
+    int     index;
+
+    if (av[1] != NULL)
+    {
+        if (ft_check_env(av, env_bis, line) == 1)
+            return (1);
+        if (av[1] && ft_is_here(av[1], '$', 1) == 1)
+        {
+            str = ft_env_without_bis(av, 1, '$');
+            if ((index = ft_getenv(str, env_bis)) >= 0)
+            {
+                free(str);
+                str = ft_env_without_bis(env_bis, index, '=');
+            }
+            ft_error_env(str, 0);
+            free(str);
+        }
+        else
+            ft_error_env(av[1], 0);
+    }
+    else
+        ft_print_env(env_bis, 0);
+    return (1);
 }

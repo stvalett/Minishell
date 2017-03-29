@@ -12,127 +12,61 @@
 
 #include "../include/minishell.h"
 
-static	int		ft_cmd_basic(char **av, char ***env_bis)
+static	int		ft_cmd_basic(char **av, char ***env_bis, char *line)
 {
-	if (*av == NULL)
-		return (1);
-	if ((ft_strcmp(av[0], "exit")) == 0)
-		exit(0);
-	else if ((ft_strcmp(av[0], "cd")) == 0)
-		return (ft_cmd_cd(av, env_bis));
-	else if (ft_strcmp(av[0], "echo") == 0
-			|| ft_strcmp(av[0], "\"echo\"") == 0
-			|| ft_strcmp(av[0], "\'echo\'") == 0)
-		return (ft_cmd_echo(av, *env_bis));
-	else if (ft_strcmp(av[0], "env") == 0 || ft_strcmp(av[0], "ENV") == 0)
-		return (ft_cmd_env(av, env_bis));
-	else if ((ft_strcmp(av[0], "setenv")) == 0)
-		return (ft_cmd_setenv(av, env_bis));
-	else if ((ft_strcmp(av[0], "unsetenv")) == 0)
-		return (ft_cmd_unsetenv(av, env_bis));
-	return (0);
+    if (*av == NULL)
+        return (1);
+    if ((ft_strcmp(av[0], "exit")) == 0)
+        exit(0);
+    else if ((ft_strcmp(av[0], "cd")) == 0)
+        return (ft_cmd_cd(av, env_bis));
+    else if (ft_strcmp(av[0], "echo") == 0
+            || ft_strcmp(av[0], "\"echo\"") == 0
+            || ft_strcmp(av[0], "\'echo\'") == 0)
+        return (ft_cmd_echo(av, *env_bis));
+    else if (ft_strcmp(av[0], "env") == 0 || ft_strcmp(av[0], "ENV") == 0)
+        return (ft_cmd_env(av, *env_bis, line));
+    else if ((ft_strcmp(av[0], "setenv")) == 0)
+        return (ft_cmd_setenv(av, env_bis));
+    else if ((ft_strcmp(av[0], "unsetenv")) == 0)
+        return (ft_cmd_unsetenv(av, env_bis));
+    return (0);
 }
 
-static	char	*ft_get_path_try(char *av, char *dir)
+static  void    ft_cmd_exec_bis(char **av, char **env_bis, char *line)
 {
-	char	*path;
-	int		len_max;
 
-	len_max = ((ft_strlen(av) + 1) + (ft_strlen(dir) + 1));
-	if ((path = (char *)malloc(sizeof(*path) * len_max)) == NULL)
-		return (NULL);
-	ft_strcpy(path, dir);
-	ft_strcat(path, "/");
-	ft_strcat(path, av);
-	if (access(path, X_OK) == 0)
-		return (path);
-	free(path);
-	path = NULL;
-	return (path);
+    if ((ft_cmd_execve(av, env_bis, line, 0)) == 0)
+    {
+        ft_free(av, 0);
+        exit(1);
+    }
+    exit(0);
+
 }
 
-static	char	*ft_get_path(char *av, char **env)
+int				ft_start_exec(char *line, char ***env_bis)
 {
-	char	*path;
-	char	*tmp;
-	char	**str;
-	int		i;
+    char	**av;
+    pid_t	pid;
 
-	path = NULL;
-	if ((i = ft_get_env("PATH", env)) >= 0)
-		path = env[i] + 5;
-	if (path != NULL && (str = ft_strsplit(path, ':')) != NULL)
-	{
-		i = 0;
-		while (str[i])
-		{
-			if ((tmp = ft_get_path_try(av, str[i])) != NULL)
-			{
-				ft_free(str, 1);
-				return (tmp);
-			}
-			i++;
-		}
-	}
-	return (av);
-}
+    if ((av = ft_strsplit(line, ' ')) != NULL)
+    {
+        if ((ft_cmd_basic(av, env_bis, line)) == 0)
+        {
+            pid = fork();
+            if (pid > 0)
+                waitpid(pid, NULL, 0);
+            if (pid == 0)
+                ft_cmd_exec_bis(av, *env_bis, line);
+            else
+            {
+                ft_free(av, 0);
+                return (pid);
+            }
 
-static	int		ft_cmd_exec_child(char **av, char **env, char *line)
-{
-	char	*tmp;
-	int		flag;
-
-	flag = 0;
-	if ((execve(ft_get_path(av[0], env), av, env)) < 0)
-	{
-		if (ft_is_acco(line, &flag) == 1)
-		{
-			tmp = ft_parse_acco(line, av, flag);
-			if (tmp != NULL)
-			{
-				ft_putstr_fd(tmp, 2);
-				ft_putendl_fd(": command not found.", 2);
-				free(tmp);
-			}
-		}
-		else
-		{
-			ft_putstr_fd(av[0], 2);
-			ft_putendl_fd(": command not found.", 2);
-		}
-		return (0);
-	}
-	return (1);
-}
-
-int				ft_cmd_exec(char *line, char ***env_bis)
-{
-	char	**av;
-	pid_t	pid;
-
-	if ((av = ft_get_av(line, *env_bis)) != NULL)
-	{
-		if ((ft_cmd_basic(av, env_bis)) == 0)
-		{
-			pid = fork();
-			if (pid > 0)
-				waitpid(pid, NULL, 0);
-			if (pid == 0)
-			{
-				if ((ft_cmd_exec_child(av, *env_bis, line)) == 0)
-				{
-					ft_free(av, 0);
-					exit(1);
-				}
-				exit(0);
-			}
-			else
-			{
-				ft_free(av, 0);
-				return (pid);
-			}
-		}
-		ft_free(av, 0);
-	}
-	return (1);
+        }
+        ft_free(av, 0);
+    }
+    return (1);
 }

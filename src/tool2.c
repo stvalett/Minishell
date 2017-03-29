@@ -44,12 +44,39 @@ char	*ft_strcpy_acco(char *line)
 	if ((tmp = (char *)malloc(sizeof(char) * ft_strlen(line) + 1)) == NULL)
 		return (NULL);
 	i = 0;
-	j = -1;
+	j = 0;
 	while ((line[i] == '"' || line[i] == '\'') && line[i])
 		i++;
-	while (line[i++] != '"' && line[i++] != '\'' && line[i++])
-		tmp[++j] = line[i];
+	while (line[i] != '"' && line[i] != '\'' && line[i])
+    {
+		tmp[j] = line[i];
+        j++;
+        i++;
+    }
 	tmp[j] = '\0';
+	return (tmp);
+}
+
+char			*ft_parse_acco(char *line, char **av, int flag)
+{
+	char	*tmp;
+	int		count;
+	int		i;
+
+	i = -1;
+	count = 0;
+	tmp = NULL;
+	while (line[++i])
+	{
+		if (line[i] == '"' && flag == 1)
+			count++;
+		else if (line[i] == '\'' && flag == 0)
+			count++;
+	}
+	if (ft_error_bracket(count, av) == 0)
+		return (tmp);
+	else
+		tmp = ft_strcpy_acco(line);
 	return (tmp);
 }
 
@@ -90,10 +117,4 @@ int		ft_is_dollar_n_acco(char **av)
 		}
 	}
 	return (0);
-}
-
-void	ft_print_error(char *av)
-{
-	ft_putstr_fd("cd: No such file or directory: ", 2);
-	ft_putendl_fd(av, 2);
 }

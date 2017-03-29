@@ -1,39 +1,25 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   tools_builts.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/24 10:21:36 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/24 18:14:28 by stvalett         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../include/minishell.h"
 
-char	*ft_oldpwd_or_home(char ***env_bis, int flag)
+static  char    *ft_oldpwd_or_add(char ***env_bis)
 {
-	char	*str;
 	int		index;
 	int		i;
+	char	*tmp;
 
-	if (flag == 0)
-		index = ft_get_env("OLDPWD", *env_bis);
-	else
-		index = ft_get_env("HOME", *env_bis);
-	if ((str = (char *)malloc(sizeof(char)
+	tmp = NULL;
+	index = ft_getenv("PWD", *env_bis);
+	if ((tmp = (char *)malloc(sizeof(char)
 					* (ft_strlen(env_bis[0][index]) + 1))) == NULL)
 		return (NULL);
 	i = 0;
 	while (env_bis[0][index][i] != '=' && env_bis[0][index][i])
 		i++;
 	i++;
-	ft_at_strcpy(str, env_bis[0][index], i);
-	return (str);
+	ft_at_strcpy(tmp, env_bis[0][index], i);
+	return (tmp);
 }
 
-void	ft_switch_pwd(char ***env_bis)
+static  void    ft_switch_pwd(char ***env_bis)
 {
 	char	*str;
 	char	*tmp;
@@ -46,76 +32,65 @@ void	ft_switch_pwd(char ***env_bis)
 	free(tmp);
 }
 
-char			*ft_get_home(char ***env_bis)
+char	*ft_oldpwd_or_home(char ***env_bis, int flag)
 {
+	char	*str;
+	int		index;
 	int		i;
-	int		flag;
-	char	*path;
 
-	i = 0;
-	flag = 0;
-	if ((i = ft_get_env("HOME", *env_bis)) >= 0)
-	{
-		flag = 1;
-		path = ft_oldpwd_or_home(env_bis, flag);
-		return (path);
-	}
-	return (NULL);
-}
-
-void	ft_check_dollar_n_acco(char **av, int *flag)
-{
-	int count;
-	int	count2;
-	int i;
-
-	i = -1;
-	count = 0;
-	count2 = 0;
-	while (av[++i])
-	{
-		if ((ft_strchr(av[i], '$')) != NULL)
-			count++;
-		if (((ft_strchr(av[i], '"')) != NULL
-					|| ft_strchr(av[i], '\'') != NULL)
-				&& ft_strcmp(av[i], "\"echo\"") != 0)
-			count2++;
-	}
-	if (count >= 1 && count2 >= 1)
-		*flag = 2;
-	else if (count >= 1 && !count2)
-		*flag = 1;
-	else if (count2 >= 1 && !count)
-		*flag = 3;
+	if (flag == 0)
+    {
+		index = ft_getenv("OLDPWD", *env_bis);
+        if (index < 0)
+            return (NULL);
+    }
 	else
-		*flag = 0;
+		index = ft_getenv("HOME", *env_bis);
+	if ((str = (char *)malloc(sizeof(char)
+					* (ft_strlen(env_bis[0][index]) + 1))) == NULL)
+		return (NULL);
+	i = 0;
+	while (env_bis[0][index][i] != '=' && env_bis[0][index][i])
+		i++;
+	i++;
+	ft_at_strcpy(str, env_bis[0][index], i);
+	return (str);
 }
 
-char	*ft_no_metachr(char *av)
+int		ft_pwd_n_oldpwd(char ***env_bis, char *path, int flag)
 {
-	char		*str;
-	char const	*start;
-	char const	*end;
+	char	*tmp;
+	char	str[1024];
 
-	start = NULL;
-	if (!av)
-		return (av);
-	while (*av)
+	getcwd(str, sizeof(str));
+	tmp = ft_oldpwd_or_add(env_bis);
+	*env_bis = ft_setenv("OLDPWD", tmp, *env_bis);
+	free(tmp);
+    if (flag == 0)
+        *env_bis = ft_setenv("PWD", str, *env_bis);
+    else
+    {
+        *env_bis = ft_setenv("PWD", path, *env_bis);
+    }
+	return (0);
+}
+
+int		ft_add_pwd_n_oldpwd(char ***env_bis, char *av, int flag)
+{
+	char	*tmp;
+	char	str[1024];
+
+	getcwd(str, sizeof(str));
+	if ((ft_strncmp(av, "-", 1)) == 0)
 	{
-		if (!(*av == '"' || *av == '\''))
-		{
-			start = (start == NULL) ? av : start;
-			end = av;
-		}
-		av++;
+		ft_switch_pwd(env_bis);
+		return (0);
 	}
-	if (start == NULL)
-		return (ft_strnew(1));
-	if ((str = (char *)malloc(sizeof(*str) * (end - start) + 2)) == NULL)
-		return (NULL);
-	av = (char *)start;
-	while (av <= end)
-		*str++ = *av++;
-	*str = '\0';
-	return (str - (end - start + 1));
+	else if (flag == 1)
+		return (0);
+	tmp = ft_oldpwd_or_add(env_bis);
+	*env_bis = ft_setenv("OLDPWD", tmp, *env_bis);
+	free(tmp);
+	*env_bis = ft_setenv("PWD", str, *env_bis);
+	return (0);
 }
