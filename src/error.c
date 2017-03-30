@@ -67,14 +67,19 @@ void			ft_error_dollar(char **av, char **env_bis)
 		}
 }
 
-int				ft_error_bracket(int count, char **av)
+int				ft_error_bracket(int count, char **av, int flag)
 {
 	if (count % 2 == 1 && ft_is_dollar_n_acco(av) == 0)
 	{
 		ft_putstr_fd("Unmatched ", 2);
-		ft_putchar_fd(av[1][0], 2);
+        if (flag)
+            ft_putchar_fd('"', 2);
+        /*else if (flag == 4)
+            ft_putchar_fd(av[1][0], 2);*/
+        else
+            ft_putchar_fd('\'', 2);
 		ft_putchar_fd('.', 2);
-		ft_putchar_fd('\n', 2);
+		ft_putchar('\n');
 		return (0);
 	}
 	else if (ft_is_dollar_n_acco(av) == 1)
@@ -112,8 +117,7 @@ int		ft_error_env_2(char	**tab, int index, int ret)
 	while (tab[++i])
 	{
 		ft_putstr_fd(tab[i], 2);
-		if (i != ft_count_av(tab))
-			ft_putchar_fd(' ', 2);
+		ft_putchar_fd(' ', 2);
 		if ((i == 0 || i == 1) && ret == 1)
 			break;
 	}

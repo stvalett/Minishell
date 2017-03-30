@@ -51,6 +51,7 @@ SRCS = ft_memset.c\
 	   ft_strnstr.c\
 	   ft_strdup.c\
 	   ft_at_strcpy.c\
+	   ft_strcpy_to.c\
 	   ft_strcpy.c\
 	   ft_strncpy.c\
 	   ft_strcat.c\
@@ -121,6 +122,7 @@ OBJ = ft_memset.o\
 	  ft_strnstr.o\
 	  ft_strdup.o\
 	  ft_at_strcpy.o\
+	  ft_strcpy_to.o\
 	  ft_strcpy.o\
 	  ft_strncpy.o\
 	  ft_strcat.o\

@@ -29,11 +29,7 @@ static	char	*ft_get_env_bis(char *av)
 	}
 	j = 0;
 	while (av[i] != '=' && av[i])
-	{
-		tmp[j] = av[i];
-		j++;
-		i++;
-	}
+		tmp[j++] = av[i++];
 	tmp[j] = '\0';
 	return (tmp);
 }

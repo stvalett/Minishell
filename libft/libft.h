@@ -78,6 +78,7 @@ char				*ft_strnstr(const char *big, const char *little
 		, size_t len);
 char				*ft_strdup(const char *s1);
 char				*ft_at_strcpy(char *dst, const char *src, int index);
+char                *ft_strcpy_to(const char *src, char c);
 char				*ft_strcpy(char *dst, const char *src);
 char				*ft_strncpy(char *dst, const char *src, size_t len);
 char				*ft_strcat(char *s1, const char *s2);

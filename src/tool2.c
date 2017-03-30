@@ -73,7 +73,7 @@ char			*ft_parse_acco(char *line, char **av, int flag)
 		else if (line[i] == '\'' && flag == 0)
 			count++;
 	}
-	if (ft_error_bracket(count, av) == 0)
+	if (ft_error_bracket(count, av, flag) == 0)
 		return (tmp);
 	else
 		tmp = ft_strcpy_acco(line);

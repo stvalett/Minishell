@@ -63,6 +63,17 @@ int		ft_cmd_env(char **av, char **env, char *line);
 int     ft_check_setenv(char **av, char ***env_bis);
 int		ft_parse_cd(char ***env_bis, char *av);
 int     ft_check_env(char **av, char **env_bis, char *line);
+int     ft_parse_env1(char **av, char **cpy_env, int flag);
+int     ft_parse_env2(char **av, char **cpy_env, int flag);
+
+/*******************************************/
+
+/********************************************
+ *              PARSE_TOOL                  *
+ *******************************************/
+int     ft_tool_parse_env(char **av, char **cpy_env);
+
+/*******************************************/
 
 /*******************************************/
 
@@ -108,7 +119,7 @@ void	ft_error_dollar(char **av, char **env_bis);
 void    ft_error_setenv(char *str, int flag);
 void    ft_error_env(char *av, int flag);
 int		ft_error_env_2(char **tab, int index, int ret);
-int     ft_error_bracket(int count, char **av);
+int     ft_error_bracket(int count, char **av, int flag);
 
 
 /*******************************************/

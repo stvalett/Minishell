@@ -24,7 +24,9 @@ static	int		ft_cmd_basic(char **av, char ***env_bis, char *line)
             || ft_strcmp(av[0], "\"echo\"") == 0
             || ft_strcmp(av[0], "\'echo\'") == 0)
         return (ft_cmd_echo(av, *env_bis));
-    else if (ft_strcmp(av[0], "env") == 0 || ft_strcmp(av[0], "ENV") == 0)
+    else if (ft_strcmp(av[0], "env") == 0 || ft_strcmp(av[0], "ENV") == 0
+            || ft_strcmp(av[0], "\"env\"") == 0
+            || ft_strcmp(av[0], "\'env\"") == 0)
         return (ft_cmd_env(av, *env_bis, line));
     else if ((ft_strcmp(av[0], "setenv")) == 0)
         return (ft_cmd_setenv(av, env_bis));

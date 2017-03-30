@@ -42,16 +42,13 @@ static  char    *ft_get_path(char *av, char **env)
 		path = env[i] + 5;
 	if (path != NULL && (str = ft_strsplit(path, ':')) != NULL)
 	{
-		i = 0;
-		while (str[i])
-		{
+		i = -1;
+		while (str[++i])
 			if ((tmp = ft_get_path_try(av, str[i])) != NULL)
 			{
 				ft_free(str, 1);
 				return (tmp);
 			}
-			i++;
-		}
 	}
 	return (av);
 }
@@ -90,7 +87,6 @@ static  char    *ft_move_to_index(char  *line, char **av)
 
 	if ((str = (char *)malloc(sizeof(char) * (ft_strlen(line) + 1))) == NULL)
 		return (NULL);
-	i = 0;
 	if (ft_strcmp(av[1], "-i") == 0)
 		str = ft_move_to_index_bis(line);
 	else
@@ -110,14 +106,14 @@ static  char    *ft_move_to_index(char  *line, char **av)
 int		ft_cmd_execve(char **av, char **env_bis, char *line, int index)
 {
 	char	**tab;
+    char    **tmp;
 	char    *str;
 	int     ret;
-	int     i;
 
-	i = -1;
 	ret = 0;
 	str = (index >= 1) ? ft_move_to_index(line, av) : NULL;
-	if ((execve(ft_get_path(av[index], env_bis), av + index, env_bis)) == -1)
+    tmp = (av[1] && ft_strcmp(av[1], "-i") == 0) ? NULL : env_bis;
+	if ((execve(ft_get_path(av[index], env_bis), av + index, tmp)) == -1)
 	{
 		tab = (index >= 1) ? ft_parse_av(str, av, env_bis, &ret) :
 			ft_parse_av(line, av, env_bis, &ret);

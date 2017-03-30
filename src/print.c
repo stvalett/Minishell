@@ -105,18 +105,23 @@ int				ft_print_acco(char **av, int flag)
 {
 	int		i;
 	int		j;
+    int     ret;
 	int		count;
 
 	count = 0;
 	i = 0;
+    ret = 0;
 	while (av[++i])
 	{
 		j = -1;
 		while (av[i][++j])
+        {
 			if (av[i][j] == '"' || av[i][j] == '\'')
 				count++;
+            ret = (av[i][j] == '"') ? 1 : 0;
+        }
 	}
-	if (ft_error_bracket(count, av) == 0)
+	if (ft_error_bracket(count, av, ret) == 0)
 		return (0);
 	else if (flag == 3)
 		ft_print_acco_bis(av);
