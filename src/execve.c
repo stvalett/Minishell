@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 13:19:07 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/29 16:20:15 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/30 13:15:13 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,16 +105,24 @@ static  char    *ft_move_to_index(char  *line, char **av)
 
 int		ft_cmd_execve(char **av, char **env_bis, char *line, int index)
 {
-	char	**tab;
-    char    **tmp;
-	char    *str;
-	int     ret;
+	char			**tab;
+	char    		**tmp;
+	char    		*str;
+	int     		ret;
+	struct	stat	info;
 
 	ret = 0;
 	str = (index >= 1) ? ft_move_to_index(line, av) : NULL;
-    tmp = (av[1] && ft_strcmp(av[1], "-i") == 0) ? NULL : env_bis;
+	tmp = (av[1] && ft_strcmp(av[1], "-i") == 0) ? NULL : env_bis;
 	if ((execve(ft_get_path(av[index], env_bis), av + index, tmp)) == -1)
 	{
+		stat(av[index], &info);
+		if (!S_IXUSR && S_ISCHR(info.st_mode))
+		{
+			ft_putstr_fd(av[index], 2);
+			ft_putendl_fd(": Permission denied", 2);
+			return (0);
+		}
 		tab = (index >= 1) ? ft_parse_av(str, av, env_bis, &ret) :
 			ft_parse_av(line, av, env_bis, &ret);
 		if (str)

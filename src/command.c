@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:23:52 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/29 16:19:23 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/30 15:29:15 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	ft_cmd_echo(char **av, char **env_bis)
             else
                 ft_print_env(av, 1);
         }
+		else
+			ft_putchar('\n');
     }
     return (1);
 }
@@ -73,7 +75,7 @@ int	ft_cmd_cd(char **av, char ***env_bis)
     uid = getuid();
     user = getpwuid(uid);
     if (av[1] != NULL)
-        ft_parse_cd(env_bis, av[1]);
+		ft_parse_cd(env_bis, av[1]);
     else
     {
         if ((path = ft_get_home(env_bis)) != NULL && chdir(path) < 0)

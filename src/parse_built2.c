@@ -6,7 +6,7 @@ int ft_parse_env2(char **av, char **cpy_env, int flag)
     char    *s1;
     char    *s2;
 
-    s1 = ft_strcpy_to(av[1], '=');
+    s1 = ft_strcpy_to(av[1], '=', 0);
     if (ft_is_here(av[1], '$', 1) == 1)
         s2 = ft_env_without_bis(av, 1, '$');
     else

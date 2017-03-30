@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:44:50 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/24 11:16:28 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/30 15:06:36 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static	void	ft_print_dollar_bis(char **av, char **env_bis)
 	index = 0;
 	i = 0;
 	while (av[++i])
-	{
 		if ((ft_strchr(av[i], '$')) != NULL
 				&& ft_no_digit(av[i]) == 0 && ft_strlen(av[i]) > 1)
 		{
@@ -33,12 +32,13 @@ static	void	ft_print_dollar_bis(char **av, char **env_bis)
 			if (tmp)
 				free(tmp);
 		}
-	}
 	if (flag == 1)
 		ft_error_dollar(av, env_bis);
 	else
+	{
 		ft_env_without(av, env_bis);
-	ft_putchar('\n');
+		ft_putchar('\n');
+	}
 }
 
 void			ft_print_dollar(char **av, char **env_bis)
@@ -53,9 +53,7 @@ void			ft_print_dollar(char **av, char **env_bis)
 		while (av[i][j])
 		{
 			if (av[i][j] == '$' && ft_isdigit(av[i][j + 1]) == 1)
-            {
 				;
-            }
 			if ((av[i][j] == '$' && ft_isalpha(av[i][j + 1]) == 1)
 					|| av[i][j] == '$')
 			{
@@ -105,12 +103,10 @@ int				ft_print_acco(char **av, int flag)
 {
 	int		i;
 	int		j;
-    int     ret;
 	int		count;
 
 	count = 0;
 	i = 0;
-    ret = 0;
 	while (av[++i])
 	{
 		j = -1;
@@ -118,10 +114,9 @@ int				ft_print_acco(char **av, int flag)
         {
 			if (av[i][j] == '"' || av[i][j] == '\'')
 				count++;
-            ret = (av[i][j] == '"') ? 1 : 0;
         }
 	}
-	if (ft_error_bracket(count, av, ret) == 0)
+	if (ft_error_bracket(count, av, flag) == 0)
 		return (0);
 	else if (flag == 3)
 		ft_print_acco_bis(av);

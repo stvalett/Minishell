@@ -7,15 +7,17 @@ static  char    *ft_oldpwd_or_add(char ***env_bis)
 	char	*tmp;
 
 	tmp = NULL;
-	index = ft_getenv("PWD", *env_bis);
-	if ((tmp = (char *)malloc(sizeof(char)
-					* (ft_strlen(env_bis[0][index]) + 1))) == NULL)
-		return (NULL);
-	i = 0;
-	while (env_bis[0][index][i] != '=' && env_bis[0][index][i])
+	if ((index = ft_getenv("PWD", *env_bis)) >= 0)
+	{
+		if ((tmp = (char *)malloc(sizeof(char)
+						* (ft_strlen(env_bis[0][index]) + 1))) == NULL)
+			return (NULL);
+		i = 0;
+		while (env_bis[0][index][i] != '=' && env_bis[0][index][i])
+			i++;
 		i++;
-	i++;
-	ft_at_strcpy(tmp, env_bis[0][index], i);
+		ft_at_strcpy(tmp, env_bis[0][index], i);
+	}
 	return (tmp);
 }
 
@@ -26,10 +28,16 @@ static  void    ft_switch_pwd(char ***env_bis)
 
 	str = ft_oldpwd_or_add(env_bis);
 	tmp = ft_oldpwd_or_home(env_bis, 0);
-	*env_bis = ft_setenv("OLDPWD", str, *env_bis);
-	free(str);
-	*env_bis = ft_setenv("PWD", tmp, *env_bis);
-	free(tmp);
+	if (str)
+	{
+		*env_bis = ft_setenv("OLDPWD", str, *env_bis);
+		free(str);
+	}
+	if (tmp)
+	{
+		*env_bis = ft_setenv("PWD", tmp, *env_bis);
+		free(tmp);
+	}
 }
 
 char	*ft_oldpwd_or_home(char ***env_bis, int flag)
@@ -38,22 +46,26 @@ char	*ft_oldpwd_or_home(char ***env_bis, int flag)
 	int		index;
 	int		i;
 
+	str = NULL;
 	if (flag == 0)
-    {
+	{
 		index = ft_getenv("OLDPWD", *env_bis);
-        if (index < 0)
-            return (NULL);
-    }
+		if (index < 0)
+			return (NULL);
+	}
 	else
 		index = ft_getenv("HOME", *env_bis);
-	if ((str = (char *)malloc(sizeof(char)
-					* (ft_strlen(env_bis[0][index]) + 1))) == NULL)
-		return (NULL);
-	i = 0;
-	while (env_bis[0][index][i] != '=' && env_bis[0][index][i])
+	if (index >= 0)
+	{
+		if ((str = (char *)malloc(sizeof(char)
+						* (ft_strlen(env_bis[0][index]) + 1))) == NULL)
+			return (NULL);
+		i = 0;
+		while (env_bis[0][index][i] != '=' && env_bis[0][index][i])
+			i++;
 		i++;
-	i++;
-	ft_at_strcpy(str, env_bis[0][index], i);
+		ft_at_strcpy(str, env_bis[0][index], i);
+	}
 	return (str);
 }
 
@@ -64,14 +76,15 @@ int		ft_pwd_n_oldpwd(char ***env_bis, char *path, int flag)
 
 	getcwd(str, sizeof(str));
 	tmp = ft_oldpwd_or_add(env_bis);
-	*env_bis = ft_setenv("OLDPWD", tmp, *env_bis);
-	free(tmp);
-    if (flag == 0)
-        *env_bis = ft_setenv("PWD", str, *env_bis);
-    else
-    {
-        *env_bis = ft_setenv("PWD", path, *env_bis);
-    }
+	if (tmp)
+	{
+		*env_bis = ft_setenv("OLDPWD", tmp, *env_bis);
+		free(tmp);
+	}
+	if (flag == 0)
+		*env_bis = ft_setenv("PWD", str, *env_bis);
+	else
+		*env_bis = ft_setenv("PWD", path, *env_bis);
 	return (0);
 }
 

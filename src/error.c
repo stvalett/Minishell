@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:59:27 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/29 16:20:14 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/30 15:17:21 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,12 @@ int				ft_error_bracket(int count, char **av, int flag)
 	if (count % 2 == 1 && ft_is_dollar_n_acco(av) == 0)
 	{
 		ft_putstr_fd("Unmatched ", 2);
-        if (flag)
-            ft_putchar_fd('"', 2);
-        /*else if (flag == 4)
-            ft_putchar_fd(av[1][0], 2);*/
-        else
-            ft_putchar_fd('\'', 2);
+		if (flag == 1)
+			ft_putchar_fd('"', 2);
+		else
+			ft_putchar_fd('\'', 2);
 		ft_putchar_fd('.', 2);
-		ft_putchar('\n');
+		ft_putchar_fd('\n', 2);
 		return (0);
 	}
 	else if (ft_is_dollar_n_acco(av) == 1)
@@ -130,6 +128,9 @@ int		ft_error_env_2(char	**tab, int index, int ret)
 
 void    ft_error_env(char *av, int flag)
 {
+	struct stat info;
+
+	stat(av, &info);
 	if (flag == 0)
 	{
 		ft_putstr_fd("env: ", 2);
@@ -138,7 +139,15 @@ void    ft_error_env(char *av, int flag)
 	}
 	else
 	{
-		ft_putstr_fd("cd: No such file or directory: ", 2);
-		ft_putendl_fd(av, 2);
+		if (S_IXUSR && S_ISDIR(info.st_mode))
+		{
+			ft_putstr_fd(av, 2);
+			ft_putendl_fd(": Permission denied", 2);
+		}
+		else
+		{
+			ft_putstr_fd("cd: No such file or directory: ", 2);
+			ft_putendl_fd(av, 2);
+		}
 	}
 }

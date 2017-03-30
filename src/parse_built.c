@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/24 11:05:29 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/29 11:49:03 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/30 15:47:17 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int			ft_parse_cd(char ***env_bis, char *av)
         }
         if (chdir(tmp) < 0)
             ft_error_env(av, 1);
-        free(tmp);
+		if (tmp)
+			free(tmp);
     }
     else
         if (chdir(av) < 0)

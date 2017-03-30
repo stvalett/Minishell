@@ -1,17 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strcpy_to.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/30 10:10:15 by stvalett          #+#    #+#             */
+/*   Updated: 2017/03/30 10:11:58 by stvalett         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-char    *ft_strcpy_to(const char *src, char c)
+char    *ft_strcpy_to(const char *src, char c, int index)
 {
-    char    *dest;
+    char    *dst;
     int     i;
+	int		j;
 
-    if ((dest = (char *)malloc(sizeof(char) * (ft_strlen(src) + 1))) == NULL)
+    if ((dst = (char *)malloc(sizeof(char) * (ft_strlen(src) + 1))) == NULL)
         return (NULL);
-    i = 0;
+    i = (index > 0) ? index : 0;
+	j = 0;
     while (src[i] != c && src[i])
     {
-        dest[i] = src[i];
+        dst[j] = src[i];
         i++;
+		j++;
     }
-    dest[i] = '\0';
+    dst[j] = '\0';
+	return (dst);
 }
