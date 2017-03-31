@@ -53,7 +53,9 @@ void			ft_print_dollar(char **av, char **env_bis)
 		while (av[i][j])
 		{
 			if (av[i][j] == '$' && ft_isdigit(av[i][j + 1]) == 1)
+            {
 				;
+            }
 			if ((av[i][j] == '$' && ft_isalpha(av[i][j + 1]) == 1)
 					|| av[i][j] == '$')
 			{
@@ -77,7 +79,7 @@ void			ft_print_dollar_n_acco(char **av, char **env_bis, int flag)
 		exit(1);
 	i = -1;
 	while (++i < ft_count_av(av))
-		tmp[i] = ft_no_metachr(av[i]);
+		tmp[i] = ft_strtrim2(av[i], '"', '\'');
 	tmp[i] = NULL;
 	ft_print_dollar(tmp, env_bis);
 	ft_free(tmp, 0);
@@ -91,7 +93,7 @@ static	void	ft_print_acco_bis(char **av)
 	i = 0;
 	while (av[++i])
 	{
-		tmp = ft_no_metachr(av[i]);
+		tmp = ft_strtrim2(av[i], '"', '\'');
 		ft_putstr(tmp);
 		ft_putchar(' ');
 		free(tmp);

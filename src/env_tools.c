@@ -97,11 +97,11 @@ char			*ft_getpath(const char *line, const char *value)
 	int		flag;
 
 	flag = 0;
-	s1 = ft_no_metachr((char *)line);
+	s1 = ft_strtrim2((char *)line, '"', '\'');
 	s2 = NULL;
 	if (value != NULL)
 	{
-		s2 = ft_no_metachr((char *)value);
+		s2 = ft_strtrim2((char *)value, '"', '\'');
 		flag = 1;
 	}
 	path = ft_getpath_bis(s1, s2);

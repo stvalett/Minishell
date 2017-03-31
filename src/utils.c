@@ -1,80 +1,108 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/29 13:19:00 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/30 15:25:52 by stvalett         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../include/minishell.h"
 
-void	ft_print_env(char **env_bis, int flag)
+char	*ft_strcpy_cara(char *av)
 {
-    int	i;
+	int		i;
+	int		j;
+	char	*tmp;
 
-    i = 0;
-    if (flag == 1)
-        i = 1;
-    while (env_bis[i])
+	if ((tmp = (char *)malloc(sizeof(char) * ft_strlen(av) + 1)) == NULL)
+		return (NULL);
+	i = -1;
+	j = 0;
+	while (av[++i])
+	{
+		if (av[i] != '$')
+		{
+			tmp[j] = av[i];
+			j++;
+		}
+	}
+	tmp[j] = '\0';
+	return (tmp);
+}
+
+char	*ft_strcpy_acco(char *line)
+{
+	char	*tmp;
+	int		i;
+	int		j;
+
+	tmp = NULL;
+	if ((tmp = (char *)malloc(sizeof(char) * ft_strlen(line) + 1)) == NULL)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while ((line[i] == '"' || line[i] == '\'') && line[i])
+		i++;
+	while (line[i] != '"' && line[i] != '\'' && line[i])
     {
-        if (flag == 1)
-        {
-            ft_putstr(env_bis[i]);
-            ft_putchar(' ');
-        }
-        else
-            ft_putendl(env_bis[i]);
+		tmp[j] = line[i];
+        j++;
         i++;
     }
-    if (flag == 1)
-        ft_putchar('\n');
+	tmp[j] = '\0';
+	return (tmp);
 }
 
-char			*ft_get_home(char ***env_bis)
+char			*ft_parse_acco(char *line, char **av, int flag)
 {
-    int		i;
-    int		flag;
-    char	*path;
+	char	*tmp;
+	int		count;
+	int		i;
 
-    i = 0;
-    flag = 0;
-    if ((i = ft_getenv("HOME", *env_bis)) >= 0)
-    {
-        flag = 1;
-        path = ft_oldpwd_or_home(env_bis, flag);
-        return (path);
-    }
-    return (NULL);
+	i = -1;
+	count = 0;
+	tmp = NULL;
+	while (line[++i])
+	{
+		if (line[i] == '"' && flag == 1)
+			count++;
+		else if (line[i] == '\'' && flag == 0)
+			count++;
+	}
+	if (ft_error_bracket(count, av, flag) == 0)
+		return (tmp);
+	else
+		tmp = ft_strcpy_acco(line);
+	return (tmp);
 }
 
-void	ft_check_dollar_n_acco(char **av, int *flag)
+int		ft_is_acco(char *line, int *flag)
 {
-    int count;
-    int	count2;
-    int i;
+	int	i;
 
-    i = -1;
-    count = 0;
-    count2 = 0;
-    while (av[++i])
-    {
-        if ((ft_strchr(av[i], '$')) != NULL)
-            count++;
-        if (((ft_strchr(av[i], '"')) != NULL
-                    || ft_strchr(av[i], '\'') != NULL)
-                && ft_strcmp(av[i], "\"echo\"") != 0)
-            count2++;
-    }
-    if (count >= 1 && count2 >= 1)
-        *flag = 2;
-    else if (count >= 1 && !count2)
-        *flag = 1;
-    else if (count2 >= 1 && !count)
-        *flag = 3;
-    else
-        *flag = 0;
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '"' || line[i] == '\'')
+		{
+			if (line[i] == '"')
+				*flag = 1;
+			else if (line[i] == '\'')
+				*flag = 0;
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+int		ft_is_dollar_n_acco(char **av)
+{
+	int i;
+	int j;
+
+	i = -1;
+	while (av[++i])
+	{
+		j = -1;
+		while (av[i][++j])
+		{
+			if (av[i][j] == '$' && (av[i][j + 1] == '"'
+						|| av[i][j + 1] == '\''))
+				return (1);
+		}
+	}
+	return (0);
 }

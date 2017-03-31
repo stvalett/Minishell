@@ -73,6 +73,7 @@ SRCS = ft_memset.c\
 	   ft_strsplit2.c\
 	   ft_strsub.c\
 	   ft_strtrim.c\
+	   ft_strtrim2.c\
 	   ft_lstnew.c\
 	   ft_lstmap.c\
 	   ft_lstdelone.c\
@@ -144,6 +145,7 @@ OBJ = ft_memset.o\
 	  ft_strsplit2.o\
 	  ft_strsub.o\
 	  ft_strtrim.o\
+	  ft_strtrim2.o\
 	  ft_lstnew.o\
 	  ft_lstmap.o\
 	  ft_lstdelone.o\

@@ -80,31 +80,30 @@ int		ft_free_str(char *s1, char *s2, int flag)
 	return (0);
 }
 
-char	*ft_no_metachr(char *av)
+void	ft_check_dollar_n_acco(char **av, int *flag)
 {
-	char		*str;
-	char const	*start;
-	char const	*end;
+    int count;
+    int	count2;
+    int i;
 
-	start = NULL;
-	if (!av)
-		return (av);
-	while (*av)
-	{
-		if (!(*av == '"' || *av == '\''))
-		{
-			start = (start == NULL) ? av : start;
-			end = av;
-		}
-		av++;
-	}
-	if (start == NULL)
-		return (ft_strnew(1));
-	if ((str = (char *)malloc(sizeof(*str) * (end - start) + 2)) == NULL)
-		return (NULL);
-	av = (char *)start;
-	while (av <= end)
-		*str++ = *av++;
-	*str = '\0';
-	return (str - (end - start + 1));
+    i = -1;
+    count = 0;
+    count2 = 0;
+    while (av[++i])
+    {
+        if ((ft_strchr(av[i], '$')) != NULL)
+            count++;
+        if (((ft_strchr(av[i], '"')) != NULL
+                    || ft_strchr(av[i], '\'') != NULL)
+                && ft_strcmp(av[i], "\"echo\"") != 0)
+            count2++;
+    }
+    if (count >= 1 && count2 >= 1)
+        *flag = 2;
+    else if (count >= 1 && !count2)
+        *flag = 1;
+    else if (count2 >= 1 && !count)
+        *flag = 3;
+    else
+        *flag = 0;
 }

@@ -38,21 +38,13 @@ static  char    *ft_good_index(char **av, char **env_bis, int *flag)
     return (NULL);
 }
 
-static  char    **ft_parse_av2(char *line, char **env_bis, int *ret)
+static  char    **ft_parse_avbis(char **tab, char *tmp, int flag)
 {
-    char    **tab;
-    char    *tmp;
-    int     flag;
-    int     i;
+    int i;
 
-    tab = NULL;
-    flag = 0;
-    *ret = 1;
-    tab = ft_strsplit2(line);
-    tmp = ft_good_index(tab, env_bis, &flag);
-    if (tmp == NULL && flag == 2)
+    i = -1;
+    if (flag == 2)
     {
-        i = -1;
         while (tab[++i])
             if (ft_is_here(tab[i], '$', 1) == 1 && i == 0)
             {
@@ -60,15 +52,34 @@ static  char    **ft_parse_av2(char *line, char **env_bis, int *ret)
                 return (NULL);
             }
     }
-    i = -1;
-    while (tab[++i])
-        if (ft_is_here(tab[i], '$', 1) == 1 && (i == 0 || i == 1) && tmp)
-        {
-            free(tab[i]);
-            tab[i] = ft_strdup(tmp);
-        }
-    free(tmp);
+    else
+    {
+        i = -1;
+        while (tab[++i])
+            if (ft_is_here(tab[i], '$', 1) == 1 && (i == 0 || i == 1) && tmp)
+            {
+                free(tab[i]);
+                tab[i] = ft_strdup(tmp);
+            }
+        free(tmp);
+    }
     return (tab);
+}
+
+static  char    **ft_parse_av2(char *line, char **env_bis, int *ret)
+{
+    char    **tab;
+    char    *tmp;
+    int     flag;
+
+    tab = NULL;
+    flag = 0;
+    *ret = 1;
+    tab = ft_strsplit2(line);
+    tmp = ft_good_index(tab, env_bis, &flag);
+    if (tmp == NULL && flag == 2)
+        return (ft_parse_avbis(tab, tmp, flag));
+    return (ft_parse_avbis(tab, tmp, flag));
 }
 
 static  char    **ft_parse_av1(char **env_bis, char *tmp)
@@ -80,9 +91,9 @@ static  char    **ft_parse_av1(char **env_bis, char *tmp)
 
     flag = 0;
     tab = NULL;
-    i = 0;
+    i = -1;
     tab = ft_strsplit2(tmp);
-    while (tab[i])
+    while (tab[++i])
     {
         tmp2 = ft_good_index(tab, env_bis, &flag); 
         if (tmp2 == NULL && flag == 2 && ft_is_here(tab[i], '$', 1) == 1)
@@ -95,7 +106,6 @@ static  char    **ft_parse_av1(char **env_bis, char *tmp)
             free(tab[i]);
             tab[i] = ft_strdup(tmp2);
         }
-        i++;
     }
 	free(tmp2);
     return (tab);

@@ -44,6 +44,7 @@ int		ft_getenv(char *line, char **env_bis);
 char	*ft_getpath(const char *line, const char *value);
 void	ft_env_without(char **av, char **env_bis);
 char    *ft_env_without_bis(char **env_bis, int index, char c);
+int     ft_tool_parse_env(char **av, char **cpy_env);
 
 /*******************************************/
 
@@ -66,13 +67,6 @@ int		ft_parse_cd(char ***env_bis, char *av);
 int     ft_check_env(char **av, char **env_bis, char *line);
 int     ft_parse_env1(char **av, char **cpy_env, int flag);
 int     ft_parse_env2(char **av, char **cpy_env, int flag);
-
-/*******************************************/
-
-/********************************************
- *              PARSE_TOOL                  *
- *******************************************/
-int     ft_tool_parse_env(char **av, char **cpy_env);
 
 /*******************************************/
 

@@ -70,6 +70,7 @@ char				**ft_strsplit(char const *s, char c);
 char				**ft_strsplit2(char const *s);
 char				*ft_itoa(int n);
 char				*ft_strtrim(char const *s);
+char                *ft_strtrim2(char const *s, char c1, char c2);
 char				*ft_strmap(char const *s, char (*f)(char));
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char				*ft_strnew(size_t size);
