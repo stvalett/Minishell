@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/31 10:09:14 by stvalett          #+#    #+#             */
+/*   Updated: 2017/03/31 11:14:14 by stvalett         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 char	*ft_strcpy_cara(char *av)
@@ -36,16 +48,16 @@ char	*ft_strcpy_acco(char *line)
 	while ((line[i] == '"' || line[i] == '\'') && line[i])
 		i++;
 	while (line[i] != '"' && line[i] != '\'' && line[i])
-    {
+	{
 		tmp[j] = line[i];
-        j++;
-        i++;
-    }
+		j++;
+		i++;
+	}
 	tmp[j] = '\0';
 	return (tmp);
 }
 
-char			*ft_parse_acco(char *line, char **av, int flag)
+char	*ft_parse_acco(char *line, char **av, int flag)
 {
 	char	*tmp;
 	int		count;

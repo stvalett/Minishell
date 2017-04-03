@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:59:27 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/30 15:17:21 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/31 11:10:00 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,30 +105,9 @@ void			ft_error_setenv(char *str, int flag)
 	}
 }
 
-int		ft_error_env_2(char	**tab, int index, int ret)
+void			ft_error_env(char *av, int flag)
 {
-	int i;
-
-	i = -1;
-	if (index >= 1)
-		ft_putstr_fd("env: ", 2);
-	while (tab[++i])
-	{
-		ft_putstr_fd(tab[i], 2);
-		ft_putchar_fd(' ', 2);
-		if ((i == 0 || i == 1) && ret == 1)
-			break;
-	}
-	if (index >= 1)
-		ft_putendl_fd(": No such file or directory", 2);
-	else
-		ft_putendl_fd(": Command not found", 2);
-	return (ft_free(tab, 0));
-}
-
-void    ft_error_env(char *av, int flag)
-{
-	struct stat info;
+	struct stat	info;
 
 	stat(av, &info);
 	if (flag == 0)

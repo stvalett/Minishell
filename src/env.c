@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:08 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/30 15:32:03 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/31 11:10:02 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,4 +103,25 @@ char			**ft_unsetenv(char *line, char *value, char **env_bis)
 	free(path);
 	ft_free(env_bis, 0);
 	return (tmp);
+}
+
+int				ft_error_env_2(char **tab, int index, int ret)
+{
+	int i;
+
+	i = -1;
+	if (index >= 1)
+		ft_putstr_fd("env: ", 2);
+	while (tab[++i])
+	{
+		ft_putstr_fd(tab[i], 2);
+		ft_putchar_fd(' ', 2);
+		if ((i == 0 || i == 1) && ret == 1)
+			break ;
+	}
+	if (index >= 1)
+		ft_putendl_fd(": No such file or directory", 2);
+	else
+		ft_putendl_fd(": Command not found", 2);
+	return (ft_free(tab, 0));
 }

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tools_builts.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/31 10:09:09 by stvalett          #+#    #+#             */
+/*   Updated: 2017/03/31 11:01:23 by stvalett         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
-static  char    *ft_oldpwd_or_add(char ***env_bis)
+static	char	*ft_oldpwd_or_add(char ***env_bis)
 {
 	int		index;
 	int		i;
@@ -21,7 +33,7 @@ static  char    *ft_oldpwd_or_add(char ***env_bis)
 	return (tmp);
 }
 
-static  void    ft_switch_pwd(char ***env_bis)
+static	void	ft_switch_pwd(char ***env_bis)
 {
 	char	*str;
 	char	*tmp;
@@ -40,7 +52,7 @@ static  void    ft_switch_pwd(char ***env_bis)
 	}
 }
 
-char	*ft_oldpwd_or_home(char ***env_bis, int flag)
+char			*ft_oldpwd_or_home(char ***env_bis, int flag)
 {
 	char	*str;
 	int		index;
@@ -69,7 +81,7 @@ char	*ft_oldpwd_or_home(char ***env_bis, int flag)
 	return (str);
 }
 
-int		ft_pwd_n_oldpwd(char ***env_bis, char *path, int flag)
+int				ft_pwd_n_oldpwd(char ***env_bis, char *path, int flag)
 {
 	char	*tmp;
 	char	str[1024];
@@ -88,7 +100,7 @@ int		ft_pwd_n_oldpwd(char ***env_bis, char *path, int flag)
 	return (0);
 }
 
-int		ft_add_pwd_n_oldpwd(char ***env_bis, char *av, int flag)
+int				ft_add_pwd_n_oldpwd(char ***env_bis, char *av, int flag)
 {
 	char	*tmp;
 	char	str[1024];

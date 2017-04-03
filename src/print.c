@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:44:50 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/30 15:06:36 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/31 11:13:30 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ static	void	ft_print_dollar_bis(char **av, char **env_bis)
 			tmp = ft_strcpy_cara(av[i]);
 			if ((index = ft_getenv(tmp, env_bis)) < 0)
 				flag = 1;
-			if (tmp)
-				free(tmp);
+			ft_free_str(tmp, NULL, 0);
 		}
 	if (flag == 1)
 		ft_error_dollar(av, env_bis);
@@ -53,9 +52,9 @@ void			ft_print_dollar(char **av, char **env_bis)
 		while (av[i][j])
 		{
 			if (av[i][j] == '$' && ft_isdigit(av[i][j + 1]) == 1)
-            {
+			{
 				;
-            }
+			}
 			if ((av[i][j] == '$' && ft_isalpha(av[i][j + 1]) == 1)
 					|| av[i][j] == '$')
 			{
@@ -113,10 +112,10 @@ int				ft_print_acco(char **av, int flag)
 	{
 		j = -1;
 		while (av[i][++j])
-        {
+		{
 			if (av[i][j] == '"' || av[i][j] == '\'')
 				count++;
-        }
+		}
 	}
 	if (ft_error_bracket(count, av, flag) == 0)
 		return (0);

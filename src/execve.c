@@ -6,13 +6,13 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 13:19:07 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/30 13:15:13 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/31 10:45:00 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-static  char    *ft_get_path_try(char *av, char *dir)
+static	char	*ft_get_path_try(char *av, char *dir)
 {
 	char	*path;
 	int		len_max;
@@ -30,7 +30,7 @@ static  char    *ft_get_path_try(char *av, char *dir)
 	return (path);
 }
 
-static  char    *ft_get_path(char *av, char **env)
+static	char	*ft_get_path(char *av, char **env)
 {
 	char	*path;
 	char	*tmp;
@@ -79,37 +79,34 @@ static	char	*ft_move_to_index_bis(char *line)
 	return (str);
 }
 
-static  char    *ft_move_to_index(char  *line, char **av)
+static	char	*ft_move_to_index(char *line, char **av)
 {
-	char    *str;
-	int     i;
-	int     j;
+	char	*str;
+	int		i;
 
-	if ((str = (char *)malloc(sizeof(char) * (ft_strlen(line) + 1))) == NULL)
-		return (NULL);
-	if (ft_strcmp(av[1], "-i") == 0)
+	if (av[1] && ft_strcmp(av[1], "-i") == 0)
 		str = ft_move_to_index_bis(line);
 	else
 	{
+		if ((str = (char *)malloc(sizeof(char)
+						* (ft_strlen(line) + 1))) == NULL)
+			return (NULL);
 		i = 0;
-		j = 0;
 		while (line[i] != ' ' && line[i])
 			i++;
 		i++;
-		while (line[i])
-			str[j++] = line[i++];
-		str[j] = '\0';
+		ft_at_strcpy(str, line, i);
 	}
 	return (str);
 }
 
-int		ft_cmd_execve(char **av, char **env_bis, char *line, int index)
+int				ft_cmd_execve(char **av, char **env_bis, char *line, int index)
 {
 	char			**tab;
-	char    		**tmp;
-	char    		*str;
-	int     		ret;
-	struct	stat	info;
+	char			**tmp;
+	char			*str;
+	int				ret;
+	struct stat		info;
 
 	ret = 0;
 	str = (index >= 1) ? ft_move_to_index(line, av) : NULL;
@@ -125,8 +122,7 @@ int		ft_cmd_execve(char **av, char **env_bis, char *line, int index)
 		}
 		tab = (index >= 1) ? ft_parse_av(str, av, env_bis, &ret) :
 			ft_parse_av(line, av, env_bis, &ret);
-		if (str)
-			free(str);
+		ft_free_str(str, NULL, 0);
 		if (tab)
 			return (ft_error_env_2(tab, index, ret));
 	}

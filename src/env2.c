@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 11:17:44 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/24 17:37:51 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/31 11:08:18 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,49 +83,49 @@ int				ft_getenv(char *line, char **env_bis)
 		return (i);
 }
 
-int     ft_tool_parse_env(char **av, char **cpy_env)
+int				ft_tool_parse_env(char **av, char **cpy_env)
 {
-    char    *str;
-    char    **tab_tmp;
-    int     flag;
+	char	*str;
+	char	**tab_tmp;
+	int		flag;
 
-    flag = 0;
-    str = ft_strtrim2(av[1], '"', '\'');
-    if ((tab_tmp = (char **)malloc(sizeof(char *) * 3)) == NULL)
-        exit (1);
-    tab_tmp[0] = ft_strdup("");
-    tab_tmp[1] = ft_strdup(str);
-    tab_tmp[2] = NULL;
-    free(str);
-    flag = 1;
-    if (ft_is_here(av[1], '=', 1) == 1 && av[1][1] == '$')
-        return (ft_parse_env1(tab_tmp, cpy_env, flag));
-    else 
-    {
-        if (ft_is_here(av[1], '=', 1) == 1)
-            return (ft_parse_env2(tab_tmp, cpy_env, flag));
-    }
-    return (ft_free(cpy_env, 0));
+	flag = 0;
+	str = ft_strtrim2(av[1], '"', '\'');
+	if ((tab_tmp = (char **)malloc(sizeof(char *) * 3)) == NULL)
+		exit(1);
+	tab_tmp[0] = ft_strdup("");
+	tab_tmp[1] = ft_strdup(str);
+	tab_tmp[2] = NULL;
+	free(str);
+	flag = 1;
+	if (ft_is_here(av[1], '=', 1) == 1 && av[1][1] == '$')
+		return (ft_parse_env1(tab_tmp, cpy_env, flag));
+	else
+	{
+		if (ft_is_here(av[1], '=', 1) == 1)
+			return (ft_parse_env2(tab_tmp, cpy_env, flag));
+	}
+	return (ft_free(cpy_env, 0));
 }
 
-void	ft_print_env(char **env_bis, int flag)
+void			ft_print_env(char **env_bis, int flag)
 {
-    int	i;
+	int	i;
 
-    i = 0;
-    if (flag == 1)
-        i = 1;
-    while (env_bis[i])
-    {
-        if (flag == 1)
-        {
-            ft_putstr(env_bis[i]);
-            ft_putchar(' ');
-        }
-        else
-            ft_putendl(env_bis[i]);
-        i++;
-    }
-    if (flag == 1)
-        ft_putchar('\n');
+	i = 0;
+	if (flag == 1)
+		i = 1;
+	while (env_bis[i])
+	{
+		if (flag == 1)
+		{
+			ft_putstr(env_bis[i]);
+			ft_putchar(' ');
+		}
+		else
+			ft_putendl(env_bis[i]);
+		i++;
+	}
+	if (flag == 1)
+		ft_putchar('\n');
 }

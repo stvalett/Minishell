@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 11:25:05 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/23 14:55:35 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/03/31 11:10:13 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,27 +65,27 @@ void			ft_env_without(char **av, char **env_bis)
 	}
 }
 
-static  char    *ft_getpath_bis(char *s1, char *s2)
+static	char	*ft_getpath_bis(char *s1, char *s2)
 {
 	char	*tmp;
 	char	*path;
 
 	path = ft_strdup(s1);
-    if ((tmp = (char *)malloc(sizeof(char) * (ft_strlen(path) + 1))) == NULL)
-        return (NULL);
-    ft_strcpy(tmp, path);
+	if ((tmp = (char *)malloc(sizeof(char) * (ft_strlen(path) + 1))) == NULL)
+		return (NULL);
+	ft_strcpy(tmp, path);
 	free(path);
 	path = ft_strjoin(tmp, "=");
-    free(tmp);
-    if ((tmp = (char *)malloc(sizeof(char) * (ft_strlen(path) + 1))) == NULL)
-        return (NULL);
-    ft_strcpy(tmp, path);
+	free(tmp);
+	if ((tmp = (char *)malloc(sizeof(char) * (ft_strlen(path) + 1))) == NULL)
+		return (NULL);
+	ft_strcpy(tmp, path);
 	free(path);
 	if (s2 != NULL)
-    {
+	{
 		path = ft_strjoin(tmp, s2);
-        free(tmp);
-    }
+		free(tmp);
+	}
 	return (path);
 }
 
