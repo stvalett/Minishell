@@ -67,7 +67,7 @@ int				ft_start_exec(char *line, char ***env_bis)
 	char	**av;
 	pid_t	pid;
 
-	if ((av = ft_strsplit(line, ' ')) != NULL)
+	if ((av = ft_strsplit2(line)) != NULL)
 	{
 		if ((ft_cmd_basic(av, env_bis, line)) == 0)
 		{
