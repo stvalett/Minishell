@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:31 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/31 11:17:14 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/04/04 18:38:40 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static	int		ft_get_prompt(char ***env_bis)
 	line = NULL;
 	ret = 0;
 	signal(SIGINT, ft_handle_signal);
-	ft_putstr("Minishell $> ");
+	ft_print_prompt(1);
 	get_next_line(0, &line);
 	if (line != NULL)
 	{
@@ -80,14 +80,10 @@ static	int		ft_get_prompt(char ***env_bis)
 
 static void		ft_basic_env(char ***env_bis)
 {
-	uid_t			uid;
-	struct passwd	*user;
 	char			str[1024];
 
-	uid = getuid();
-	user = getpwuid(uid);
 	getcwd(str, sizeof(str));
-	*env_bis = ft_setenv("HOME", user->pw_dir, *env_bis);
+	*env_bis = ft_setenv("HOME", "/Users/stvalett", *env_bis);
 	*env_bis = ft_setenv("PWD", str, *env_bis);
 	*env_bis = ft_setenv("SHLVL", "0", *env_bis);
 }
@@ -105,5 +101,6 @@ int				main(int ac, char **av, char **env)
 	if (ac > 0 && av != NULL)
 		while ((ret = ft_get_prompt(&env_bis)) > 0)
 			;
+	ft_putchar('\n');
 	return (0);
 }

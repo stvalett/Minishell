@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:46 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/31 15:44:01 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/04/04 16:05:50 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,15 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <dirent.h>
-# include <pwd.h>
 # include <fcntl.h>
+# include <time.h>
+# include <netdb.h>
+
+# define RED		"\x1B[31m"
+# define RESET		"\033[0m"
+# define BLUE		"\x1B[34m"
+# define YELLOW		"\033[33m"
+# define PINK		"\033[35m"
 
 char	**ft_cpy_env(char **env, int len, char *path);
 char	**ft_setenv(const char *line, const char *value, char **env);
@@ -70,6 +77,9 @@ void	ft_print_dollar(char **av, char **env_bis);
 int		ft_start_exec(char *line, char ***env_bis);
 int		ft_cmd_execve(char **av, char **env_bis, char *line, int index);
 int		ft_env_execve(char **av, char **env_bis);
-void	ft_handle_signal(int signal);
+void	ft_handle_signal(int signum);
+void	ft_handle_signal2(int signum);
+void	ft_handle_signal3(int signum);
+void	ft_print_prompt(int flag);
 
 #endif

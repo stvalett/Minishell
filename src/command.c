@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/31 10:07:55 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/31 10:30:21 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/04/04 11:34:09 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int				ft_start_exec(char *line, char ***env_bis)
 		if ((ft_cmd_basic(av, env_bis, line)) == 0)
 		{
 			pid = fork();
+			signal(SIGINT, ft_handle_signal2);
 			if (pid > 0)
 				waitpid(pid, NULL, 0);
 			if (pid == 0)

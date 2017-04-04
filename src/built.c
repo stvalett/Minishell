@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/31 15:05:15 by stvalett          #+#    #+#             */
-/*   Updated: 2017/03/31 15:43:35 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/04/03 11:23:39 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,7 @@ int	ft_cmd_setenv(char **av, char ***env_bis)
 int	ft_cmd_cd(char **av, char ***env_bis)
 {
 	char			*path;
-	uid_t			uid;
-	struct passwd	*user;
 
-	uid = getuid();
-	user = getpwuid(uid);
 	if (av[1] != NULL)
 		ft_parse_cd(env_bis, av[1]);
 	else
@@ -87,8 +83,8 @@ int	ft_cmd_cd(char **av, char ***env_bis)
 		}
 		else
 		{
-			chdir(user->pw_dir);
-			ft_pwd_n_oldpwd(env_bis, user->pw_dir, 1);
+			chdir("/Users/stvalett");
+			ft_pwd_n_oldpwd(env_bis, "/Users/stvalett", 1);
 		}
 	}
 	return (1);
