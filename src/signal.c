@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/31 11:14:42 by stvalett          #+#    #+#             */
-/*   Updated: 2017/04/04 16:13:07 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/04/04 18:59:31 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,34 @@ static	void	ft_print_hour(void)
 	ft_putstr("] ");
 }
 
+static	char	*ft_print_current_work(void)
+{
+	char	dir[256];
+	char	*str;
+	int		i;
+	int		j;
+
+	getcwd(dir, sizeof(dir));
+	j = 0;
+	i = ft_strlen(dir) - 1;
+	if ((str = (char *)malloc(sizeof(char) * (ft_strlen(dir) + 1))) == NULL)
+		return (NULL);
+	while (dir[i] != '/')
+		i--;
+	while (dir[i])
+	{
+		str[j] = dir[i];
+		j++;
+		i++;
+	}
+	str[j] = '\0';
+	return (str);
+}
+
 void			ft_print_prompt(int flag)
 {
 	char		host[256];
+	char		*str;
 
 	gethostname(host, sizeof(host));
 	ft_putstr(YELLOW);
@@ -71,12 +96,14 @@ void			ft_print_prompt(int flag)
 	ft_putstr(PINK);
 	ft_putstr(host);
 	ft_putstr(RESET);
-	ft_putstr(RESET);
+	ft_putchar(' ');
+	str = ft_print_current_work();
+	ft_putstr(str);
 	if (flag)
 		ft_putstr(BLUE);
 	else
 		ft_putstr(RED);
 	ft_putstr("  Minishell $> ");
 	ft_putstr(RESET);
-
+	free(str);
 }
