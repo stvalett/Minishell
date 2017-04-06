@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:46 by stvalett          #+#    #+#             */
-/*   Updated: 2017/04/04 16:05:50 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/04/05 12:02:19 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ int		ft_cmd_execve(char **av, char **env_bis, char *line, int index);
 int		ft_env_execve(char **av, char **env_bis);
 void	ft_handle_signal(int signum);
 void	ft_handle_signal2(int signum);
-void	ft_handle_signal3(int signum);
 void	ft_print_prompt(int flag);
 
 #endif

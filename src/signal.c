@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/31 11:14:42 by stvalett          #+#    #+#             */
-/*   Updated: 2017/04/04 18:59:31 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/04/05 12:02:06 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,6 @@ void			ft_handle_signal2(int signum)
 	{
 		signal(SIGINT, SIG_IGN);
 		ft_putchar('\n');
-		return ;
-	}
-}
-
-void			ft_handle_signal3(int signum)
-{
-	if (signum)
-	{
-		signal(SIGTERM, SIG_IGN);
 		return ;
 	}
 }

@@ -6,7 +6,7 @@
 #    By: stvalett <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/31 15:47:13 by stvalett          #+#    #+#              #
-#    Updated: 2017/03/31 15:55:49 by stvalett         ###   ########.fr        #
+#    Updated: 2017/04/06 18:10:36 by stvalett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -104,9 +104,11 @@ $(NAME) : $(OBJ)
 
 clean :
 	@rm -f $(OBJ)
+	@echo OBJ FROM LIBFT REMOVE
 
 fclean: clean
 	@rm -f $(NAME)
+	@echo LIBFT.A FROM LIBFT REMOVE
 
 re : fclean all
 

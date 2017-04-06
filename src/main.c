@@ -6,7 +6,7 @@
 /*   By: stvalett <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 11:24:31 by stvalett          #+#    #+#             */
-/*   Updated: 2017/04/04 18:38:40 by stvalett         ###   ########.fr       */
+/*   Updated: 2017/04/05 13:56:11 by stvalett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,12 @@ static	void	ft_shlv(char ***env_bis)
 static	int		ft_get_prompt(char ***env_bis)
 {
 	int			ret;
+	int			i;
 	char		*line;
 
 	line = NULL;
 	ret = 0;
+	i = 0;
 	signal(SIGINT, ft_handle_signal);
 	ft_print_prompt(1);
 	get_next_line(0, &line);
